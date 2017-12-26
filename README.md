@@ -1,37 +1,32 @@
-# clojint
+#### clojint the clojure interpreter
 
-FIXME: description
+This error probably means you are trying to require a package when you should be importing it:
 
-## Installation
+```
+:type java.io.FileNotFoundException
+:message "Could not locate javax/imageio/ImageIO__init.class or javax/imageio/ImageIO.clj on classpath."
+```   
 
-Download from http://example.com/FIXME.
+#### Usage
 
-## Usage
+After adding dependencies to project.clj build the uberjar which is the Clojure interpreter.
 
-FIXME: explanation
+Leiningen is basically serving as the package manager, building all dependencies into the uberjar.
 
-    $ java -jar clojint-0.1.0-standalone.jar [args]
+```
+> lein uberjar
+Compiling clojint.core
+Created /Users/twl/Sites/git_repos/clojure-interpreter/target/uberjar/clojint-0.1.0-SNAPSHOT.jar
+Created /Users/twl/Sites/git_repos/clojure-interpreter/target/uberjar/clojint-0.1.0-SNAPSHOT-standalone.jar
+> java -jar target/uberjar/clojint-0.1.0-SNAPSHOT-standalone.jar example_2.clj
+{:width 386, :height 284}
+>
+```
 
-## Options
+#### License
 
-FIXME: listing of options this app accepts.
-
-## Examples
-
-...
-
-### Bugs
-
-...
-
-### Any Other Sections
-### That You Think
-### Might be Useful
-
-## License
-
-Copyright © 2017 FIXME
+Copyright © 2017 Tom Laudeman
 
 Distributed under the Eclipse Public License either version 1.0 or (at
 your option) any later version.
-# clojure-interpreter
+
