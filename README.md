@@ -1,17 +1,41 @@
 #### clojint the clojure interpreter
 
-This error probably means you are trying to require a package when you should be importing it:
+This project allows you to create a Clojure interpreter. I use it as a replacement for Perl and bash shell automation tasks.
 
-```
-:type java.io.FileNotFoundException
-:message "Could not locate javax/imageio/ImageIO__init.class or javax/imageio/ImageIO.clj on classpath."
-```   
+It takes 2 or 3 seconds to spin up the interpreter, but that's much better than ```lien run``` and I've fixed
+the shutdown-agents problem.
+
 
 #### Usage
 
-After adding dependencies to project.clj build the uberjar which is the Clojure interpreter.
+1) lein uberjar
+2) ./local_release.clj
 
-Leiningen is basically serving as the package manager, building all dependencies into the uberjar.
+You need to run ```lein uberjar``` once. After that, you can ```local_release.clj```
+(or ```./local_release.clj```)
+
+You can run your .clj files several ways:
+```
+# use the explicit uberjar location
+/usr/bin/java -jar target/uberjar/clojint-0.1.0-SNAPSHOT-standalone.jar example_1.clj
+# use the clojint.sh shell wrapper, after running local_release.clj
+clojint.sh example_1.clj
+# Use java -jar with the uberjar in ~/bin/ but only after running local_release.clj
+java -jar ~/bin/clojint.jar example_1.clj
+```
+
+Scripts like example_3.clj which have a shebang, can simply be executed (as long as they have excute privs.)
+
+```
+chmod +x example_3.clj
+./example_3.clj
+```
+
+After adding dependencies to project.clj, you must build the uberjar which is the Clojure interpreter clojint.
+
+Leiningen is basically serving as the package manager for the interpreter, building all dependencies into the uberjar.
+
+There is probably a 65k limit on .clj file size.
 
 ```
 > lein uberjar
@@ -22,6 +46,54 @@ Created /Users/twl/Sites/git_repos/clojure-interpreter/target/uberjar/clojint-0.
 {:width 386, :height 284}
 >
 ```
+
+I use a shell script to wrap a java -jar command. -jar only takes an explicit filename. The shebang (#!) will not interpolate paths. As a result, you cannot say "#!java -jar ~/bin/clojint.jar" or "#!/java -jar $HOME/clojint.jar". 
+
+
+Other people have thought about making an uberjar an executable:
+
+https://superuser.com/questions/912955/how-to-make-a-java-jar-file-to-be-a-single-file-executable
+
+#### Working with shell commands from Clojure
+
+https://stackoverflow.com/questions/36740239/clojure-how-to-execute-shell-commands-with-piping
+right: (shell/sh "bash" "-c" "ls -a | grep Doc")
+wrong: (shell/sh "bash" "-c" "ls -a" "|" "grep Doc")
+
+See example_3.clj
+
+#### Philosophical considerations
+
+Dependencies are managed via lein and project.clj. Rebuild the uberjar after changing dependencies.
+
+Each interpreted .clj script needs to do its own requirements and imports.
+
+#### How this works
+
+https://clojure.org/reference/evaluation
+
+#### Problems you may encounter
+
+
+This error probably means you are trying to require a package when you should be importing it:
+
+```
+:type java.io.FileNotFoundException
+:message "Could not locate javax/imageio/ImageIO__init.class or javax/imageio/ImageIO.clj on classpath."
+```   
+
+#### What's up with (shutdown-agents in core.clj?
+
+The whole issue with shutdown-agents is a side effect of clojure.java.shell being implemented with futures.
+
+https://clojuredocs.org/clojure.java.shell/sh
+
+sh is implemented using Clojure futures.  See examples for 'future' for discussion of an undesirable 1-minute
+wait that can occur before your standalone Clojure program exits if you do not use shutdown-agents.
+
+#### Local release
+
+https://stackoverflow.com/questions/27833454/how-to-use-a-lein-exec-task-in-release-tasks-when-releasing-a-clojure-leiningen
 
 #### License
 
