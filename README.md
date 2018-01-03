@@ -5,6 +5,9 @@ This project allows you to create a Clojure interpreter. I use it as a replaceme
 It takes 2 or 3 seconds to spin up the interpreter, but that's much better than ```lien run``` and I've fixed
 the shutdown-agents problem.
 
+#### todo
+
+- what is this: :omit-source true
 
 #### Usage
 
