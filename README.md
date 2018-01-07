@@ -7,7 +7,11 @@ the shutdown-agents problem.
 
 #### todo
 
-- what is this: :omit-source true
+- what is this and does it have anything to do with lein uberjar
+
+```
+:omit-source true
+```
 
 #### Usage
 
@@ -19,22 +23,26 @@ You need to run ```lein uberjar``` once. After that, you can ```local_release.cl
 
 You can run your .clj files several ways:
 ```
-# use the explicit uberjar location
+* use the explicit uberjar location
 /usr/bin/java -jar target/uberjar/clojint-0.1.0-SNAPSHOT-standalone.jar example_1.clj
-# use the clojint.sh shell wrapper, after running local_release.clj
+
+
+* use the clojint.sh shell wrapper, after running local_release.clj
 clojint.sh example_1.clj
-# Use java -jar with the uberjar in ~/bin/ but only after running local_release.clj
+
+
+* Use java -jar with the uberjar in ~/bin/ but only after running local_release.clj
 java -jar ~/bin/clojint.jar example_1.clj
 ```
 
-Scripts like example_3.clj which have a shebang, can simply be executed (as long as they have excute privs.)
+Scripts like example_3.clj which have a shebang (#!), can simply be executed as long as they have excute privs. Give them execute privs with ```chmod +x```
 
 ```
 chmod +x example_3.clj
 ./example_3.clj
 ```
 
-After adding dependencies to project.clj, you must build the uberjar which is the Clojure interpreter clojint.
+After adding dependencies to project.clj, you must re-build the uberjar which is the Clojure interpreter clojint.
 
 Leiningen is basically serving as the package manager for the interpreter, building all dependencies into the uberjar.
 
@@ -56,6 +64,42 @@ I use a shell script to wrap a java -jar command. -jar only takes an explicit fi
 Other people have thought about making an uberjar an executable:
 
 https://superuser.com/questions/912955/how-to-make-a-java-jar-file-to-be-a-single-file-executable
+
+#### Huge speed increase with drip
+
+Use drip as a direct replacement for the "java" command. Drip runs a java and a daemon in the background. On
+my machine drip is roughly 33x faster for a small script where nearly all the time is startup.
+
+```
+> time java -jar ~/bin/clojint.jar example_import1.clj
+2018-01-06T21:42:46.003-05:00
+-365
+java -jar ~/bin/clojint.jar example_import1.clj  2.36s user 0.11s system 195% cpu 1.265 total
+> time drip -jar ~/bin/clojint.jar example_import1.clj
+2018-01-06T21:42:51.269-05:00
+-365
+drip -jar ~/bin/clojint.jar example_import1.clj  0.07s user 0.08s system 35% cpu 0.438 total
+```
+
+https://github.com/ninjudd/drip
+
+Installation was easy, but I already have gcc (XCode) installed, so I didn't have to deal with that. The first
+time drip is run, it builds itself.
+
+```
+10957  curl -L https://raw.githubusercontent.com/ninjudd/drip/master/bin/drip > ~/bin/drip
+10959  chmod 755 ~/bin/drip
+10964  drip -jar ~/bin/clojint.jar example_import1.clj
+```
+
+I've put a naive hack into local_install.clj so that if drip is available, it will be used instead of "java".
+
+You should kill java drip processes before ```lein uberwar``` or ```./local_release.clj```. Drip caches things.
+
+```
+pkill -fl drip
+```
+
 
 #### Working with shell commands from Clojure
 
