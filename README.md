@@ -24,7 +24,7 @@ Clojint requires Leiningen (and Clojure). https://leiningen.org Leiningen has a 
 Here is a terminal session transcript:
 
 ```
-> git clone https://github.com/twl8n/clojure-interpreter.git
+> git clone git@github.com:twl8n/clojure-interpreter.git
 Cloning into 'clojure-interpreter'...
 remote: Counting objects: 55, done.
 remote: Compressing objects: 100% (37/37), done.
