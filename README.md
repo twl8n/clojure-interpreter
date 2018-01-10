@@ -5,13 +5,53 @@ This project allows you to create a Clojure interpreter. I use it as a replaceme
 It takes 2 or 3 seconds to spin up the interpreter, but that's much better than ```lien run``` and I've fixed
 the shutdown-agents problem.
 
+I'm assuming that you are familiar with Linux/OSX terminal sessions, and that you have a text editor. Windows
+users will need cygwin, or the bash extensions to Powershell (I guess).
+
 #### todo
 
-- what is this and does it have anything to do with lein uberjar
+- what is :omit-source and does it have anything to do with lein uberjar? Will using it make a smaller uberjar? Would a smaller uberjar be an advantage besides saving disk?
 
 ```
 :omit-source true
 ```
+
+
+#### Installing
+
+Clojint requires Leiningen (and Clojure). https://leiningen.org Leiningen has a self-install script, and Leiningen will install Clojure. In fact, installing Leiningen is the easiest way to install (and use) Clojure. Once Leiningen is installed, clone the clojure interpreter git repository, and, change into that directory, and run ```lein uberjar```.
+
+Here is a terminal session transcript:
+
+```
+> git clone https://github.com/twl8n/clojure-interpreter.git
+Cloning into 'clojure-interpreter'...
+remote: Counting objects: 55, done.
+remote: Compressing objects: 100% (37/37), done.
+remote: Total 55 (delta 17), reused 47 (delta 9), pack-reused 0
+Unpacking objects: 100% (55/55), done.
+Checking connectivity... done.
+> cd clojure-interpreter
+> lein uberjar
+Retrieving com/layerware/hugsql-adapter-clojure-jdbc/0.4.8/hugsql-adapter-clojure-jdbc-0.4.8.pom from clojars
+Retrieving funcool/clojure.jdbc/0.9.0/clojure.jdbc-0.9.0.pom from clojars
+Retrieving org/xerial/sqlite-jdbc/3.21.0/sqlite-jdbc-3.21.0.pom from central
+Retrieving clojure/java-time/clojure.java-time/0.3.1/clojure.java-time-0.3.1.pom from clojars
+Retrieving clj-time/clj-time/0.14.2/clj-time-0.14.2.pom from clojars
+Retrieving org/imgscalr/imgscalr-lib/4.2/imgscalr-lib-4.2.pom from central
+Retrieving image-resizer/image-resizer/0.1.9/image-resizer-0.1.9.pom from clojars
+Retrieving org/xerial/sqlite-jdbc/3.21.0/sqlite-jdbc-3.21.0.jar from central
+Retrieving org/imgscalr/imgscalr-lib/4.2/imgscalr-lib-4.2.jar from central
+Retrieving com/layerware/hugsql-adapter-clojure-jdbc/0.4.8/hugsql-adapter-clojure-jdbc-0.4.8.jar from clojars
+Retrieving clojure/java-time/clojure.java-time/0.3.1/clojure.java-time-0.3.1.jar from clojars
+Retrieving image-resizer/image-resizer/0.1.9/image-resizer-0.1.9.jar from clojars
+Retrieving funcool/clojure.jdbc/0.9.0/clojure.jdbc-0.9.0.jar from clojars
+Retrieving clj-time/clj-time/0.14.2/clj-time-0.14.2.jar from clojars
+Compiling clojint.core
+Created /home/ubuntu/src/clojure-interpreter/target/uberjar/clojint-0.1.0-SNAPSHOT.jar
+Created /home/ubuntu/src/clojure-interpreter/target/uberjar/clojint-0.1.0-SNAPSHOT-standalone.jar
+```
+
 
 #### Usage
 
