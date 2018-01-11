@@ -16,6 +16,9 @@ users will need cygwin, or the bash extensions to Powershell (I guess).
 :omit-source true
 ```
 
+- + update install and exec due to limitations in shebang. 
+
+https://www.in-ulm.de/~mascheck/various/shebang/
 
 #### Installing
 
@@ -61,22 +64,23 @@ Created /home/ubuntu/src/clojure-interpreter/target/uberjar/clojint-0.1.0-SNAPSH
 You need to run ```lein uberjar``` once. After that, you can ```local_release.clj```
 (or ```./local_release.clj```)
 
-You can run your .clj files several ways:
+You can run your .clj files several ways. My favorite is to use a shebang (#!) as shown in example_3.clj.
+
+
+* use the explicit uberjar command, with your clj as the final argument:
 ```
-* use the explicit uberjar location
 /usr/bin/java -jar target/uberjar/clojint-0.1.0-SNAPSHOT-standalone.jar example_1.clj
-
-
-* use the clojint.sh shell wrapper, after running local_release.clj
+```
+* use the clojint.sh shell wrapper, with your clj as the final argument. Run local_release.clj at least once.
+```
 clojint.sh example_1.clj
-
-
-* Use java -jar with the uberjar in ~/bin/ but only after running local_release.clj
+```
+* Use java -jar with the uberjar in ~/bin/, with our clj as the final argument. You must first run local_release.clj at least once.
+```
 java -jar ~/bin/clojint.jar example_1.clj
 ```
-
-Scripts like example_3.clj which have a shebang (#!), can simply be executed as long as they have excute privs. Give them execute privs with ```chmod +x```
-
+* Scripts like example_3.clj which have a shebang as the first line (#!/usr/bin/env clojint.sh), can simply be
+executed as long as they have execute privs. Give them execute privs with ```chmod +x```
 ```
 chmod +x example_3.clj
 ./example_3.clj
