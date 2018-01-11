@@ -1,4 +1,4 @@
-#!/usr/bin/java -jar target/uberjar/clojint-0.1.0-SNAPSHOT-standalone.jar
+#!./bootstrap.sh
 (require '[clojure.java.shell :as shell])
 
 ;; If drip is found by which, use that as the java-cmd.

@@ -5,9 +5,12 @@ This project allows you to create a Clojure interpreter. I use it as a replaceme
 It takes 2 or 3 seconds to spin up the interpreter, but that's much better than ```lien run``` and I've fixed
 the shutdown-agents problem.
 
+I'm assuming that you are familiar with Linux/OSX terminal sessions, and that you have a text editor. Windows
+users will need cygwin, or the bash extensions to Powershell (I guess).
+
 #### todo
 
-- what is this and does it have anything to do with lein uberjar
+- what is :omit-source and does it have anything to do with lein uberjar? Will using it make a smaller uberjar? Would a smaller uberjar be an advantage besides saving disk?
 
 ```
 :omit-source true
@@ -15,33 +18,78 @@ the shutdown-agents problem.
 
 - what is ```jar -cvfe``` and how would one use it with clojure? 
 
+- + update install and exec due to limitations in shebang. 
+
+https://www.in-ulm.de/~mascheck/various/shebang/
+
+
+#### Installing
+
+Clojint requires Leiningen (and Clojure). https://leiningen.org Leiningen has a self-install script, and Leiningen will install Clojure. In fact, installing Leiningen is the easiest way to install (and use) Clojure. Once Leiningen is installed, clone the clojure interpreter git repository, and, change into that directory, and run ```lein uberjar```.
+
+Here is a terminal session transcript:
+
+```
+> git clone git@github.com:twl8n/clojure-interpreter.git
+Cloning into 'clojure-interpreter'...
+remote: Counting objects: 55, done.
+remote: Compressing objects: 100% (37/37), done.
+remote: Total 55 (delta 17), reused 47 (delta 9), pack-reused 0
+Unpacking objects: 100% (55/55), done.
+Checking connectivity... done.
+> cd clojure-interpreter
+> lein uberjar
+Retrieving com/layerware/hugsql-adapter-clojure-jdbc/0.4.8/hugsql-adapter-clojure-jdbc-0.4.8.pom from clojars
+Retrieving funcool/clojure.jdbc/0.9.0/clojure.jdbc-0.9.0.pom from clojars
+Retrieving org/xerial/sqlite-jdbc/3.21.0/sqlite-jdbc-3.21.0.pom from central
+Retrieving clojure/java-time/clojure.java-time/0.3.1/clojure.java-time-0.3.1.pom from clojars
+Retrieving clj-time/clj-time/0.14.2/clj-time-0.14.2.pom from clojars
+Retrieving org/imgscalr/imgscalr-lib/4.2/imgscalr-lib-4.2.pom from central
+Retrieving image-resizer/image-resizer/0.1.9/image-resizer-0.1.9.pom from clojars
+Retrieving org/xerial/sqlite-jdbc/3.21.0/sqlite-jdbc-3.21.0.jar from central
+Retrieving org/imgscalr/imgscalr-lib/4.2/imgscalr-lib-4.2.jar from central
+Retrieving com/layerware/hugsql-adapter-clojure-jdbc/0.4.8/hugsql-adapter-clojure-jdbc-0.4.8.jar from clojars
+Retrieving clojure/java-time/clojure.java-time/0.3.1/clojure.java-time-0.3.1.jar from clojars
+Retrieving image-resizer/image-resizer/0.1.9/image-resizer-0.1.9.jar from clojars
+Retrieving funcool/clojure.jdbc/0.9.0/clojure.jdbc-0.9.0.jar from clojars
+Retrieving clj-time/clj-time/0.14.2/clj-time-0.14.2.jar from clojars
+Compiling clojint.core
+Created /home/ubuntu/src/clojure-interpreter/target/uberjar/clojint-0.1.0-SNAPSHOT.jar
+Created /home/ubuntu/src/clojure-interpreter/target/uberjar/clojint-0.1.0-SNAPSHOT-standalone.jar
+```
+
+
 #### Usage
 
 1) lein uberjar
 2) ./local_release.clj
+3) ./example_3.clj
+4) Add new dependency to project.clj, as necessary for one of your Clojure scripts
+5) ./local_release.clj
+6) ./your_new_script.clj
 
 You need to run ```lein uberjar``` once. After that, you can ```local_release.clj```
 (or ```./local_release.clj```)
 
-You can run your .clj files several ways:
-```
-* use the explicit uberjar location
-/usr/bin/java -jar target/uberjar/clojint-0.1.0-SNAPSHOT-standalone.jar example_1.clj
+You can run your .clj files several ways. My favorite is to use a shebang (#!) as shown in example_3.clj.
 
-
-* use the clojint.sh shell wrapper, after running local_release.clj
-clojint.sh example_1.clj
-
-
-* Use java -jar with the uberjar in ~/bin/ but only after running local_release.clj
-java -jar ~/bin/clojint.jar example_1.clj
-```
-
-Scripts like example_3.clj which have a shebang (#!), can simply be executed as long as they have excute privs. Give them execute privs with ```chmod +x```
-
+* Scripts like example_3.clj which have a shebang as the first line (#!/usr/bin/env clojint.sh), can simply be
+executed as long as they have execute privs. Give them execute privs with ```chmod +x```
 ```
 chmod +x example_3.clj
 ./example_3.clj
+```
+* use the explicit uberjar command, with your clj as the final argument:
+```
+/usr/bin/java -jar target/uberjar/clojint-0.1.0-SNAPSHOT-standalone.jar example_1.clj
+```
+* use the clojint.sh shell wrapper, with your clj as the final argument. Run local_release.clj at least once.
+```
+clojint.sh example_1.clj
+```
+* Use java -jar with the uberjar in ~/bin/, with our clj as the final argument. You must first run local_release.clj at least once.
+```
+java -jar ~/bin/clojint.jar example_1.clj
 ```
 
 After adding dependencies to project.clj, you must re-build the uberjar which is the Clojure interpreter clojint.
