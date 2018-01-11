@@ -60,13 +60,22 @@ Created /home/ubuntu/src/clojure-interpreter/target/uberjar/clojint-0.1.0-SNAPSH
 
 1) lein uberjar
 2) ./local_release.clj
+3) ./example_3.clj
+4) Add new dependency to project.clj, as necessary for one of your Clojure scripts
+5) ./local_release.clj
+6) ./your_new_script.clj
 
 You need to run ```lein uberjar``` once. After that, you can ```local_release.clj```
 (or ```./local_release.clj```)
 
 You can run your .clj files several ways. My favorite is to use a shebang (#!) as shown in example_3.clj.
 
-
+* Scripts like example_3.clj which have a shebang as the first line (#!/usr/bin/env clojint.sh), can simply be
+executed as long as they have execute privs. Give them execute privs with ```chmod +x```
+```
+chmod +x example_3.clj
+./example_3.clj
+```
 * use the explicit uberjar command, with your clj as the final argument:
 ```
 /usr/bin/java -jar target/uberjar/clojint-0.1.0-SNAPSHOT-standalone.jar example_1.clj
@@ -78,12 +87,6 @@ clojint.sh example_1.clj
 * Use java -jar with the uberjar in ~/bin/, with our clj as the final argument. You must first run local_release.clj at least once.
 ```
 java -jar ~/bin/clojint.jar example_1.clj
-```
-* Scripts like example_3.clj which have a shebang as the first line (#!/usr/bin/env clojint.sh), can simply be
-executed as long as they have execute privs. Give them execute privs with ```chmod +x```
-```
-chmod +x example_3.clj
-./example_3.clj
 ```
 
 After adding dependencies to project.clj, you must re-build the uberjar which is the Clojure interpreter clojint.
