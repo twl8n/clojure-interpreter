@@ -13,6 +13,8 @@ the shutdown-agents problem.
 :omit-source true
 ```
 
+- what is ```jar -cvfe``` and how would one use it with clojure? 
+
 #### Usage
 
 1) lein uberjar
@@ -83,6 +85,8 @@ drip -jar ~/bin/clojint.jar example_import1.clj  0.07s user 0.08s system 35% cpu
 
 https://github.com/ninjudd/drip
 
+https://github.com/technomancy/leiningen/wiki/Faster
+
 Installation was easy, but I already have gcc (XCode) installed, so I didn't have to deal with that. The first
 time drip is run, it builds itself.
 
@@ -99,6 +103,7 @@ You should kill java drip processes before ```lein uberwar``` or ```./local_rele
 ```
 pkill -fl drip
 ```
+
 
 
 #### Working with shell commands from Clojure
