@@ -4,6 +4,13 @@
             [clojure.java.io])
   (:gen-class))
 
+;; Apps will hang after load-file due to running agents that are futures. This same function run in the repl
+;; does not hang. Calling shutdown-agents in the repl will exit the repl, so only call shutdown-agents in
+;; apps.
+
+;; Need to call (flush) before exiting. Most clojure print functions do no flush, and as a result, a script
+;; with that calls print instead of prn may producte no visible outout. Calling flush is a workaround for that.
+
 (defn -main
   [& args]
   (if (some->> args
@@ -14,10 +21,9 @@
       (try
         (load-file (first args))
         (catch Exception e (.printStackTrace e)))
-      ;; Apps will hang here due to running agents that are futures. This same function run in the repl does not hang.
-      ;; Calling shutdown-agents in the repl will exit the repl, so only call shutdown-agents in apps.
       (when (= "clojure.core" (str *ns*))
-               (shutdown-agents)))
+        (shutdown-agents))
+      (flush))
     (do 
       (println "Cannot find file. args: " args)
       1)))
