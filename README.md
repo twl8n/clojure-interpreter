@@ -115,7 +115,13 @@ Other people have thought about making an uberjar an executable:
 
 https://superuser.com/questions/912955/how-to-make-a-java-jar-file-to-be-a-single-file-executable
 
-#### Huge speed increase with drip
+#### JVM startup time
+
+
+The startup time of the JVM can be improved, but won't ever be as fast as Perl, Python, or bash. 
+
+https://purelyfunctional.tv/article/the-legend-of-long-jvm-startup-times/
+
 
 Use drip as a direct replacement for the "java" command. Drip runs a java and a daemon in the background. On
 my machine drip is roughly 33x faster for a small script where nearly all the time is startup.
