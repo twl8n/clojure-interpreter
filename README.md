@@ -8,6 +8,13 @@ the shutdown-agents problem.
 I'm assuming that you are familiar with Linux/OSX terminal sessions, and that you have a text editor. Windows
 users will need cygwin, or the bash extensions to Powershell (I guess).
 
+#### printf and buffered output
+
+In Clojure the only print function that calls flush is prn. Since many scripting applications need unbuffered output
+I've hacked together a method to make printf unbuffered. In your script call ```(clojint.core/unbuf-printf)```
+
+
+
 #### todo
 
 - what is :omit-source and does it have anything to do with lein uberjar? Will using it make a smaller uberjar? Would a smaller uberjar be an advantage besides saving disk?
