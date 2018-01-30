@@ -25,7 +25,10 @@
 
   ;; -Xverify:none saves around 0.3 to 0.4 sec on my machine
   ;; I'll take that since java takes an eternity to launch.
-  (spit clojint-sh (format "%s -Xverify:none -jar %s/bin/clojint.jar $1" java-cmd home))
+
+  ;; Because clojint.sh is a shell script, we can use ~/ and we don't have to use an absolute 
+  ;; home directory path (which varies from system to system).
+  (spit clojint-sh (format "%s -Xverify:none -jar ~/bin/clojint.jar $1" java-cmd))
   (shell/sh "chmod" "+x" clojint-sh)
   (println "clojint shell wrapper: " clojint-sh)
   (print (:out (shell/sh "ls" "-l" clojint-sh))))
