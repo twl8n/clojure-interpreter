@@ -8,6 +8,40 @@ the shutdown-agents problem.
 I'm assuming that you are familiar with Linux/OSX terminal sessions, and that you have a text editor. Windows
 users will need cygwin, or the bash extensions to Powershell (I guess).
 
+
+Clojure has what is essentially an interpreter, as well as a repl (clj), however there are use cases where the
+Clojure solution is unworkable, or less than ideal. My interpreter has Clojure under the hood, but I've added
+some features for "scripting" and for quick-and-dirty tiny coding projects. I've also included commonly
+Clojure libraries in my interpreter so it can be used for scripting without getting into dependency
+management. I'll probably add more Clojure libraries over time, as need (my need) dictates. Since this is
+github, anyone can clone my interpreter and add, remove, or change dependencies in their copy.
+
+I prepared a comparison:
+
+| feature                       | clojure/clj  | clojint interpreter |
+|-------------------------------+--------------+---------------------|
+| download size MB              | ~ 20MB       | ~ 13MB              |
+| requirements                  | rlwrap, java | java                |
+| Windows                       | no           | yes                 |
+| Mac (1)                       | yes          | yes                 |
+| Linux                         | yes          | yes                 |
+| deps.edn(2)                   | yes          | no (maybe?)         |
+| includes SQLite adapeters     | no           | yes                 |
+| includes PostgreSQL adapeters | no           | yes                 |
+| includes clostach             | no           | yes                 |
+| includes ring                 | no           | yes                 |
+| includes java/jdbc            | no           | yes                 |
+| adding dependencies           | deps.edn     | lein                |
+ 
+(1) Mac installation of clojure normally uses the "brew" software installer, although you can probably use "curl"
+and unpack the .tar.gz files yourself.
+
+(2) deps.edn is a feature of clojure that allows you to manage dependencies. In other words, to use additional
+clojure software ilbraries. Unfortunately, as of 2018-02-22 it can't be turned off, so if you run a script via
+clojure in a directory of a project that uses deps.edn, you are forced to use those deps. This is a big
+problem if the deps happen to be broken.
+
+
 #### printf and buffered output
 
 In Clojure the only print function that calls flush is prn. Since many scripting applications need unbuffered output
@@ -207,6 +241,10 @@ wait that can occur before your standalone Clojure program exits if you do not u
 #### Local release
 
 https://stackoverflow.com/questions/27833454/how-to-use-a-lein-exec-task-in-release-tasks-when-releasing-a-clojure-leiningen
+
+#### Links
+
+https://clojure.org/guides/getting_started
 
 #### License
 
