@@ -18,25 +18,27 @@ github, anyone can clone my interpreter and add, remove, or change dependencies 
 
 I prepared a comparison:
 
+```
 | feature                       | clojure/clj  | clojint interpreter |
 |-------------------------------+--------------+---------------------|
 | download size MB              | ~ 20MB       | ~ 13MB              |
 | requirements                  | rlwrap, java | java                |
 | Windows                       | no           | yes                 |
-| Mac (1)                       | yes          | yes                 |
+| Mac [1]                       | yes          | yes                 |
 | Linux                         | yes          | yes                 |
-| deps.edn(2)                   | yes          | no (maybe?)         |
+| deps.edn [2]                   | yes          | no (maybe?)         |
 | includes SQLite adapeters     | no           | yes                 |
 | includes PostgreSQL adapeters | no           | yes                 |
 | includes clostach             | no           | yes                 |
 | includes ring                 | no           | yes                 |
 | includes java/jdbc            | no           | yes                 |
 | adding dependencies           | deps.edn     | lein                |
+```
  
-(1) Mac installation of clojure normally uses the "brew" software installer, although you can probably use "curl"
+[1] Mac installation of clojure normally uses the "brew" software installer, although you can probably use "curl"
 and unpack the .tar.gz files yourself.
 
-(2) deps.edn is a feature of clojure that allows you to manage dependencies. In other words, to use additional
+[2] deps.edn is a feature of clojure that allows you to manage dependencies. In other words, to use additional
 clojure software ilbraries. Unfortunately, as of 2018-02-22 it can't be turned off, so if you run a script via
 clojure in a directory of a project that uses deps.edn, you are forced to use those deps. This is a big
 problem if the deps happen to be broken.
