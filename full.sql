@@ -3,9 +3,11 @@
 
 -- See the readme for an quick explanation of HugSQL headers. 
 
--- :name create-address
--- :command :execute
--- :result :affected
+-- :name check-empty :? :1
+-- :doc SQLite db query to check if tables exist.
+select count(*) as count from sqlite_master;
+
+-- :name create-address :! :n
 -- :doc create the address table
 create table address (
         id integer primary key autoincrement,
@@ -29,6 +31,8 @@ create index address_ndx1 on address (city,street,postal_code);
 insert into address (street, city, postal_code)
 values (:street, :city, :postal_code)
 
+-- :name all-address :? :*
+select * from address;
 
 -- :name insert-address-vector
 -- :command :execute

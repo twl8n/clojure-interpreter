@@ -4,14 +4,27 @@
          [clojure.repl :refer [doc]]
          [clojure.java.shell :as shell]
          [clojure.java.io]
-         [jdbc.core :as jdbc] ;; clojure.jdbc
-         [clojure.java.jdbc]
+         [clojure.java.jdbc :as jdbc]
          [clojure.string :as str]
          [hugsql.core :as hugsql]
-         [hugsql.adapter.clojure-jdbc :as cj-adapter]))
+         ))
 
+;; not quite
+(def x-dbspec-sqlite
+  {:vendor "sqlite"
+   :name "hdemo.db"
+   })
+
+;; nope
+(def z-dbspec-sqlite
+  {:dbtype "sqlite"
+   :dbname "hdemo.db" ;; db name
+   })
+
+;; yes
 (def dbspec-sqlite
-  {:subprotocol "sqlite"
+  {:classname   "org.sqlite.JDBC"
+   :subprotocol "sqlite"
    :subname     "hdemo.db"})
 
 
@@ -25,11 +38,9 @@
 ;; Hugsql macros must be outside defn and come before any mention of functions that they will create at
 ;; runtime. Two functions will be created for each :name in full.sql. 
 
-;; (hugsql/def-db-fns "../full.sql"
-;;   {:adapter (cj-adapter/hugsql-adapter-clojure-jdbc)})
+(hugsql/def-db-fns (clojure.java.io/as-file "full.sql"))
 
-;; (hugsql/def-sqlvec-fns "../full.sql"
-;;   {:adapter (cj-adapter/hugsql-adapter-clojure-jdbc)})
+(hugsql/def-sqlvec-fns (clojure.java.io/as-file "full.sql"))
 
 ;; {:exit 2, :out "", :err "ls: cannot access hdemo.db: No such file or directory\n"}
 
@@ -43,12 +54,25 @@
 
 ;; Create hdemo.db via the sqlite3 cli
 
+;; This error:
+;; java.lang.IllegalArgumentException: db-spec org.sqlite.SQLiteConnection@1d23ff23 is missing a required parameter, compiling:(/Users/twl/Sites/git_repos/clojure-interpreter/./example_sqlite_1.clj:68:1)
+;; Fixed by turning (jdbc/get-connection dbspec-sqlite)
+;; into {:connection (jdbc/get-connection dbspec-sqlite)}
+
 (defn -main
   "Using clojure.jdbc. Run some code and def vars that you can inspect in the repl."
   []
-  (let [conn (jdbc/connection dbspec-sqlite)]
-    (println "Database connection check: " (jdbc/fetch conn ["SELECT 1"]))
-    (println {:insert (jdbc/execute conn ["insert into address (city) values ('foo')"])})))
+  (let [conn {:connection (jdbc/get-connection dbspec-sqlite)}]
+    ;; Connecting to a SQLite database has the side effect of creating an empty
+    ;; database file if it did not already exist. Checking the connection is somewhat redunant for SQLite.
+    (if (>= 0 (:count (check-empty conn)))
+      (do
+        (println "count: " (:count (check-empty conn)))
+        (create-address conn)))
+    (println (insert-address conn {:street "100 Maple St." :city "Pleasant Town" :postal_code "99999"}))
+    (println (all-address conn))
+    ;; (println {:insert (jdbc/execute conn ["insert into address (city) values ('foo')"])})
+    ))
 
 (-main)
 

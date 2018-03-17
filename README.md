@@ -13,6 +13,22 @@ users will need cygwin, or the bash extensions to Powershell (I guess).
 In Clojure the only print function that calls flush is prn. Since many scripting applications need unbuffered output
 I've hacked together a method to make printf unbuffered. In your script call ```(clojint.core/unbuf-printf)```
 
+In a script where you defn printf, the only way to quiet the warning `WARNING: printf already refers to: #'clojure.core/printf in namespace: user, being replaced by: #'user/printf
+` is to use the (ns ... (:refer-clojure ...))
+```
+(ns ecs-content
+  (:require [clojure.java.shell :as shell]
+            [clojure.data])
+  (:refer-clojure :exclude [printf]))
+```
+
+In clojint/core.clj, two other methods should work:
+
+```
+(require '[clojure.core :exclude printf])
+;; OR
+(refer-clojure :exclude [printf])
+```
 
 
 #### todo
@@ -121,6 +137,35 @@ I use a shell script to wrap a java -jar command. -jar only takes an explicit fi
 Other people have thought about making an uberjar an executable:
 
 https://superuser.com/questions/912955/how-to-make-a-java-jar-file-to-be-a-single-file-executable
+
+#### HugSQL examples
+
+The more complete example for HugSQL is https://github.com/twl8n/hugsql-demo
+
+Briefly, in full.sql are some SQL queries and the comments are HugSQL formatted configuration.
+
+`-- :name <query-name> [<query execution type> <query return type>]`
+
+In the `:name` key, the first argument is the name of the query. For example "check-empty"
+```
+-- :name check-empty :? :1
+```
+
+The somewhat optional second and third args are execution type and execution return value
+
+Type:
+
+* :! insert, update, or delete
+* :? select
+
+Return:
+
+* :n number of effected rows from insert, update, delete, or DDL [1] statements like `create table ...` 
+* :1 return only a single row that is a result of a select
+* :* return list of maps of all rows
+
+[1] Data Definition Language which for SQL databases is SQL. Many statements are standard, but each database has extensions and alternate syntax.
+
 
 #### JVM startup time
 
