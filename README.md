@@ -26,7 +26,7 @@ I prepared a comparison:
 | Windows                       | no           | yes                 |
 | Mac [1]                       | yes          | yes                 |
 | Linux                         | yes          | yes                 |
-| deps.edn [2]                   | yes          | no (maybe?)         |
+| deps.edn [2]                  | yes          | no (maybe?)         |
 | includes SQLite adapeters     | no           | yes                 |
 | includes PostgreSQL adapeters | no           | yes                 |
 | includes clostach             | no           | yes                 |
