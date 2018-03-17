@@ -77,7 +77,7 @@ In clojint/core.clj, two other methods should work:
 
 - what is ```jar -cvfe``` and how would one use it with clojure? 
 
-- + update install and exec due to limitations in shebang. 
+- update install and exec due to limitations in shebang. 
 
 https://www.in-ulm.de/~mascheck/various/shebang/
 
@@ -274,7 +274,15 @@ This error probably means you are trying to require a package when you should be
 ```
 :type java.io.FileNotFoundException
 :message "Could not locate javax/imageio/ImageIO__init.class or javax/imageio/ImageIO.clj on classpath."
-```   
+```
+
+This error:
+```
+java.lang.IllegalArgumentException: db-spec org.sqlite.SQLiteConnection@1d23ff23 is missing a required parameter, compiling:(/Users/twl/Sites/git_repos/clojure-interpreter/./example_sqlite_1.clj:68:1)
+
+Fixed by turning `(jdbc/get-connection dbspec-sqlite)`
+into `{:connection (jdbc/get-connection dbspec-sqlite)}`
+
 
 #### What's up with (shutdown-agents in core.clj?
 
@@ -295,7 +303,7 @@ https://clojure.org/guides/getting_started
 
 #### License
 
-Copyright © 2017 Tom Laudeman
+Copyright © 2018 Tom Laudeman
 
 Distributed under the Eclipse Public License either version 1.0 or (at
 your option) any later version.
