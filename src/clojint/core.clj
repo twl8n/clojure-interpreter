@@ -9,11 +9,11 @@
 ;; does not hang. Calling shutdown-agents in the repl will exit the repl, so only call shutdown-agents in
 ;; apps.
 
-;; Need to call (flush) before exiting. Most clojure print functions do no flush, and as a result, a script
+;; Need to call (flush) before exiting. Most clojure print functions do not flush, and as a result, a script
 ;; with that calls print instead of prn may producte no visible outout. Calling flush is a workaround for that.
 
 ;; There are several ways to force printf to be followed by flush, but this seems to be the simplest.
-;; Call unbuf-printf and all subsequent printf calls will use the flush version.
+;; Call unbuf-printf from your code, and all subsequent printf calls will use the flush version.
 ;; See experiments.clj for the other things that were tried.
 
 (defn unbuf-printf []

@@ -3,7 +3,6 @@
 
 -- See the readme for an quick explanation of HugSQL headers. 
 
-
 -- :name check-empty :? :1
 -- :doc SQLite db query to check if tables exist.
 select count(*) as count from sqlite_master;

@@ -1,12 +1,13 @@
 #!/usr/bin/env clojint.sh
 (ns ex-sqlite
   (:require [clojure.tools.namespace.repl :as tnr]
-         [clojure.repl :refer [doc]]
-         [clojure.java.shell :as shell]
-         [clojure.java.io]
-         [clojure.java.jdbc :as jdbc]
-         [clojure.string :as str]
-         [hugsql.core :as hugsql]))
+            [clojure.repl :refer [doc]]
+            [clojure.java.shell :as shell]
+            [clojure.java.io]
+            [clojure.java.jdbc :as jdbc]
+            [clojure.string :as str]
+            [clojure.pprint]
+            [hugsql.core :as hugsql]))
 
 (def dbspec-sqlite
   {:classname   "org.sqlite.JDBC"
@@ -20,18 +21,19 @@
 (hugsql/def-sqlvec-fns (clojure.java.io/as-file "full.sql"))
 
 (defn -main
-  "Using clojure.jdbc. Run some code and def vars that you can inspect in the repl."
+  "Create the address table if it doesn't exist, insert a row, read all the records."
   []
   (let [conn {:connection (jdbc/get-connection dbspec-sqlite)}]
-    ;; Connecting to a SQLite database has the side effect of creating an empty
-    ;; database file if it did not already exist. Checking the connection is somewhat redunant for SQLite.
+    ;; Connecting to a SQLite database has the side effect of creating an empty database file if it did not
+    ;; already exist. Checking the connection would be somewhat redunant for SQLite. Checking for an empty
+    ;; database is necessary for this demo.
     (if (>= 0 (:count (check-empty conn)))
       (do
-        (println "count: " (:count (check-empty conn)))
+        (printf "Database contains %s tables/sequences.\n" (:count (check-empty conn)))
+        (printf "Creating address table.\n")
         (create-address conn)))
-    (println (insert-address conn {:street "100 Maple St." :city "Pleasant Town" :postal_code "99999"}))
-    (println (all-address conn))))
+    (printf "Rows inserted: %s\n" (insert-address conn {:street "100 Maple St." :city "Pleasant Town" :postal_code "99999"}))
+    (printf "The address table:")
+    (clojure.pprint/print-table (all-address conn))))
 
 (-main)
-
-
