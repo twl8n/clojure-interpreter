@@ -15,6 +15,7 @@
                  [org.postgresql/postgresql "42.1.4"]
                  [de.ubercode.clostache/clostache "1.4.0"]
                  [joda-time "2.9.9"]
+                 [com.cemerick/pomegranate "1.0.0"] ;; Dynamically load dependencies
                  [clojure.java-time "0.3.1"] ;; https://github.com/dm3/clojure.java-time
                  [clj-time "0.14.2"] ;; https://github.com/clj-time/clj-time
                  [ring "1.5.0"]

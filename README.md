@@ -301,6 +301,10 @@ https://stackoverflow.com/questions/27833454/how-to-use-a-lein-exec-task-in-rele
 
 https://clojure.org/guides/getting_started
 
+#### Experiments
+
+See experiments.clj
+
 #### License
 
 Copyright © 2018 Tom Laudeman

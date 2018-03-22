@@ -1,3 +1,34 @@
+;; It would be nice to be able to dynamically load modules without building the interpreter. In theory this
+;; is possible, and (in theory) the loaded modules are cached locally. I can't get it to work.
+
+
+;; Does not work
+;; (require '[clojure.data.codec.base64])
+;; FileNotFoundException Could not locate clojure/data/codec/base64__init.class or clojure/data/codec/base64.clj on classpath.  clojure.lang.RT.load (RT.java:456)
+
+(use '[cemerick.pomegranate :only (add-dependencies)])
+(add-dependencies :coordinates '[[org.clojure/tools.namespace "0.2.11"]]
+                  :repositories (merge cemerick.pomegranate.aether/maven-central
+                                       {"clojars" "https://clojars.org/repo"}))
+(add-dependencies :coordinates '[[org.clojure/data.codec "0.1.1"]]
+                  :repositories (merge cemerick.pomegranate.aether/maven-central
+                                       {"clojars" "https://clojars.org/repo"}))
+(add-dependencies :coordinates '[[org.clojure/data.codec "0.1.1"]]
+                  :repositories (merge cemerick.pomegranate.aether/maven-central
+                                       {"central" "https://repo1.maven.org/maven2/"}))
+
+(add-dependencies :coordinates '[[org.clojure/data.codec "0.1.1"]])
+
+;; org.clojure : data.codec : 0.1.1
+;; http://repo1.maven.org/maven2/org/clojure/data.codec/0.1.1/
+
+(require '[clojure.data.codec.base64] :verbose)
+(require '(clojure.data.codec.base64))
+;; => nil
+(def foo (clojure.data.codec.base64/encode "this is a test"))
+;; => CompilerException java.lang.ClassNotFoundException: clojure.data.codec.base64, compiling: ...
+(decode foo)
+
 ;; decorate printf to add flush
 
 ;; https://github.com/weavejester/decorate
