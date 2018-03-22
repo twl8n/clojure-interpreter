@@ -1,6 +1,19 @@
+;; Maybe Alemic works?
+
+
+;; https://stackoverflow.com/questions/16409182/any-way-to-add-dependency-to-lein-project-without-repl-restart?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
+
+;; Another example of pomegranate
+;; https://gist.github.com/j1n3l0/2239353#file-gistfile1-txt-L10
+
+;; Another example
+;; https://stackoverflow.com/questions/18834808/what-is-the-easiest-way-to-load-a-clojure-library-all-the-time?rq=1&utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
+
+;; maybe doesn't work with clojure 1.8.0
+;; https://github.com/cemerick/pomegranate/issues/94
+
 ;; It would be nice to be able to dynamically load modules without building the interpreter. In theory this
 ;; is possible, and (in theory) the loaded modules are cached locally. I can't get it to work.
-
 
 ;; Does not work
 ;; (require '[clojure.data.codec.base64])
