@@ -69,6 +69,14 @@ In clojint/core.clj, two other methods should work:
 
 #### todo
 
+- Add an example for XML parsing
+
+- Add an example for base64 encode/decode.
+
+- Add an example for Postgres
+
+- Continue with the experiment to dynamically load modules.
+
 - what is :omit-source and does it have anything to do with lein uberjar? Will using it make a smaller uberjar? Would a smaller uberjar be an advantage besides saving disk?
 
 ```

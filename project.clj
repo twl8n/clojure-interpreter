@@ -11,6 +11,8 @@
                  ;; [funcool/clojure.jdbc "0.9.0"] ;; use with hugsql-core and hugsql-adapter-clojure-jdbc
                  [org.clojure/java.jdbc "0.7.5"]
                  [org.clojure/tools.namespace "0.2.11"]
+                 [org.clojure/data.xml "0.0.8"]
+                 [org.clojure/data.codec "0.1.1"]
                  [org.xerial/sqlite-jdbc "3.21.0"]
                  [org.postgresql/postgresql "42.1.4"]
                  [de.ubercode.clostache/clostache "1.4.0"]
