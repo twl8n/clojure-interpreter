@@ -38,9 +38,36 @@
 (require '[clojure.data.codec.base64] :verbose)
 (require '(clojure.data.codec.base64))
 ;; => nil
+(def foo (clojure.data.codec.base64/encode (into-array Byte/TYPE "this is a test")))
+(prn "foo: " (apply str (map char (clojure.data.codec.base64/decode foo))))
+
+;; Not only did this throw a compiler execption using the add-dependencies, but it would never have
+;; worked because encode takes a byte-array. See above.
 (def foo (clojure.data.codec.base64/encode "this is a test"))
 ;; => CompilerException java.lang.ClassNotFoundException: clojure.data.codec.base64, compiling: ...
-(decode foo)
+
+
+(use '[cemerick.pomegranate :only (add-dependencies)])
+(add-dependencies :coordinates '[[clj-http "2.3.0"]]
+                  :repositories (merge cemerick.pomegranate.aether/maven-central
+                                       {"central" "https://repo1.maven.org/maven2/"
+                                        "clojars" "https://clojars.org/repo"}))
+;; Wait for the deps to be retrieved...
+;; {[commons-codec "1.10" :exclusions [[org.clojure/clojure]]] nil
+ ;; [org.apache.httpcomponents/httpmime "4.5.2" :exclusions [[org.clojure/clojure]]] nil
+ ;; [potemkin "0.4.3" :exclusions [[org.clojure/clojure]]] #{[clj-tuple "0.2.2"] [riddley "0.1.12"]}
+ ;; [org.apache.httpcomponents/httpclient "4.5.2" :exclusions [[org.clojure/clojure]]] #{[commons-logging "1.2"]}
+ ;; [org.apache.httpcomponents/httpcore "4.4.5" :exclusions [[org.clojure/clojure]]] nil
+ ;; [commons-io "2.5" :exclusions [[org.clojure/clojure]]] nil
+ ;; [clj-tuple "0.2.2"] nil
+ ;; [slingshot "0.12.2" :exclusions [[org.clojure/clojure]]] nil
+ ;; [clj-http "2.3.0"] #{[commons-codec "1.10" :exclusions [[org.clojure/clojure]]] [org.apache.httpcomponents/httpmime "4.5.2" :exclusions [[org.clojure/clojure]]] [potemkin "0.4.3" :exclusions [[org.clojure/clojure]]] [org.apache.httpcomponents/httpclient "4.5.2" :exclusions [[org.clojure/clojure]]] [org.apache.httpcomponents/httpcore "4.4.5" :exclusions [[org.clojure/clojure]]] [commons-io "2.5" :exclusions [[org.clojure/clojure]]] [slingshot "0.12.2" :exclusions [[org.clojure/clojure]]]}
+ ;; [riddley "0.1.12"] nil
+ ;; [commons-logging "1.2"] nil}
+
+(require '[clj-http.client :as client] :verbose)
+;; => FileNotFoundException Could not locate clj_http/client__init.class or clj_http/client.clj on classpath. Please check that namespaces with dashes use underscores in the Clojure file name.  clojure.lang.RT.load (RT.java:456)
+(client/get "http://example.com/resources/id")
 
 ;; decorate printf to add flush
 
