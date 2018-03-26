@@ -6,7 +6,6 @@
 
 ;; => nil
 (def foo (clojure.data.codec.base64/encode (into-array Byte/TYPE "this is a test")))
-;; => CompilerException java.lang.ClassNotFoundException: clojure.data.codec.base64, compiling: ...
 (prn "foo: " (apply str (map char (clojure.data.codec.base64/decode foo))))
 
 (ns example_1
