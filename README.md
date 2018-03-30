@@ -21,7 +21,7 @@ I prepared a comparison:
 ```
 | feature                       | clojure/clj  | clojint interpreter |
 |-------------------------------+--------------+---------------------|
-| download size MB              | ~ 20MB       | ~ 13MB              |
+| download size MB              | ~ 22MB       | ~ 20MB              |
 | requirements                  | rlwrap, java | java                |
 | Windows                       | no           | yes                 |
 | Mac [1]                       | yes          | yes                 |
@@ -32,9 +32,8 @@ I prepared a comparison:
 | includes clostach             | no           | yes                 |
 | includes ring                 | no           | yes                 |
 | includes java/jdbc            | no           | yes                 |
-| adding dependencies           | deps.edn     | lein                |
+| adding dependencies           | deps.edn     | lein[3]             |
 ```
- 
 [1] Mac installation of clojure normally uses the "brew" software installer, although you can probably use "curl"
 and unpack the .tar.gz files yourself.
 
@@ -42,6 +41,8 @@ and unpack the .tar.gz files yourself.
 clojure software ilbraries. Unfortunately, as of 2018-02-22 it can't be turned off, so if you run a script via
 clojure in a directory of a project that uses deps.edn, you are forced to use those deps. This is a big
 problem if the deps happen to be broken.
+
+[3] There is a way to add dependencies dynamically using pomegranate. 
 
 
 #### printf and buffered output
@@ -312,6 +313,56 @@ https://clojure.org/guides/getting_started
 #### Experiments
 
 See experiments.clj
+
+Does not work with pomegranate:
+```
+> lein repl
+SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+nREPL server started on port 49729 on host 127.0.0.1 - nrepl://127.0.0.1:49729
+REPL-y 0.3.7, nREPL 0.2.12
+Clojure 1.8.0
+Java HotSpot(TM) 64-Bit Server VM 1.8.0_131-b11
+    Docs: (doc function-name-here)
+          (find-doc "part-of-name-here")
+  Source: (source function-name-here)
+ Javadoc: (javadoc java-object-or-class-here)
+    Exit: Control+D or (exit) or (quit)
+ Results: Stored in vars *1, *2, *3, an exception in *e
+
+clojint.core=>
+```
+
+After `lein upgrade`
+
+```
+> lein repl      
+nREPL server started on port 49879 on host 127.0.0.1 - nrepl://127.0.0.1:49879
+org.eclipse.aether.resolution.DependencyResolutionException: Could not transfer artifact org.clojure:clojure:jar:1.3.0 from/to central (https://repo1.maven.org/maven2/): GET request of: org/clojure/clojure/1.3.0/clojure-1.3.0.jar from central failed
+```
+
+Fixed by excluding `[org.clojure/clojure]` from com.cemerick/pomegranate.
+
+```
+[com.cemerick/pomegranate "1.0.0" :exclusions [org.clojure/clojure]]
+```
+
+#### pomegranate not working
+
+```
+;; => FileNotFoundException Could not locate clj_http/client__init.class or clj_http/client.clj on classpath. Please check that namespaces with dashes use underscores in the Clojure file name.  clojure.lang.RT.load (RT.java:456)
+
+;; (clojure.core/load "/clj_http/client")
+;; FileNotFoundException Could not locate clj_http/client__init.class or clj_http/client.clj on classpath. Please check that namespaces with dashes use underscores in the Clojure file name.  clojure.lang.RT.load (RT.java:456)
+```
+
+Running example_dynamic_dependency.clj I get this error:
+
+```
+(clojure.core/load "/clj_http/client")
+java.io.FileNotFoundException: Could not locate clj_http/client__init.class or clj_http/client.clj on classpath. Please check that namespaces with dashes use underscores in the Clojure file name., compiling:(/Users/twl/Sites/git_repos/clojure-interpreter/./example_dynamic_dependency.clj:20:1)
+```
 
 #### License
 
