@@ -1,5 +1,10 @@
 ;; Maybe Alemic works?
 
+;; Use boot instead, which has its own built-in dynamic module installer
+;; https://github.com/boot-clj/boot
+;; Linux users install boot via
+;; sudo bash -c "cd /usr/local/bin && curl -fsSLo boot https://github.com/boot-clj/boot-bin/releases/download/latest/boot.sh && chmod 755 boot"
+;; linuxbrew.sh install requires root password, or hackery to use sudo. Doesn't work so well if your linux box doesn't have a root password.
 
 ;; https://stackoverflow.com/questions/16409182/any-way-to-add-dependency-to-lein-project-without-repl-restart?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
 
@@ -26,6 +31,12 @@
 (add-dependencies :coordinates '[[org.clojure/data.codec "0.1.1"]]
                   :repositories (merge cemerick.pomegranate.aether/maven-central
                                        {"clojars" "https://clojars.org/repo"}))
+
+[etaoin "0.2.8-SNAPSHOT"]
+(add-dependencies :coordinates '[[etaoin "0.2.8-SNAPSHOT"]]
+                  :repositories (merge cemerick.pomegranate.aether/maven-central
+                                       {"central" "https://repo1.maven.org/maven2/"
+                                       "clojars" "https://clojars.org/repo"}))
 (add-dependencies :coordinates '[[org.clojure/data.codec "0.1.1"]]
                   :repositories (merge cemerick.pomegranate.aether/maven-central
                                        {"central" "https://repo1.maven.org/maven2/"}))
