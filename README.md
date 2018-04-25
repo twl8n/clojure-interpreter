@@ -364,6 +364,32 @@ Running example_dynamic_dependency.clj I get this error:
 java.io.FileNotFoundException: Could not locate clj_http/client__init.class or clj_http/client.clj on classpath. Please check that namespaces with dashes use underscores in the Clojure file name., compiling:(/Users/twl/Sites/git_repos/clojure-interpreter/./example_dynamic_dependency.clj:20:1)
 ```
 
+#### Graalvm doesn't work
+
+```
+> export JAVA_HOME=/Users/twl/bin/labsjdk1.8.0_161-jvmci-0.42/Contents/Home/    
+> lein uberjar                                                              
+Compiling clojint.core
+Created /Users/twl/src/clojure-interpreter/target/uberjar/clojint-0.1.0-SNAPSHOT.jar
+Created /Users/twl/src/clojure-interpreter/target/uberjar/clojint-0.1.0-SNAPSHOT-standalone.jar
+> ~/bin/graalvm-1.0.0-rc1/Contents/Home/bin/native-image -cp target/uberjar/clojint-0.1.0-SNAPSHOT-standalone.jar clojint.core
+
+... Unsupported constructor java.lang.ClassLoader.<init>(ClassLoader) ...
+```
+
+The following command does build an executable, and that executable fails with the same execption as above:
+
+`~/bin/graalvm-1.0.0-rc1/Contents/Home/bin/native-image -H:+ReportUnsupportedElementsAtRuntime -cp target/uberjar/clojint-0.1.0-SNAPSHOT-standalone.jar clojint.core`
+
+example of something else to try:
+
+`native-image -cp `lein cp`:target/uberjar/hello-0.1.0-SNAPSHOT-standalone.jar hello.core`
+
+Not working. This reports missing directory/file for zillions of paths and files that simply don't exist and never will.
+
+`~/bin/graalvm-1.0.0-rc1/Contents/Home/bin/native-image -cp `lein cp`:target/uberjar/clojint-0.1.0-SNAPSHOT-standalone.jar clojint.core`
+
+
 #### License
 
 Copyright © 2018 Tom Laudeman

@@ -1,3 +1,4 @@
+#!/usr/bin/env clojint.core
 (ns example_1
   (:require [clojure.string :as str]
             [clojure.java.shell :as shell]))
