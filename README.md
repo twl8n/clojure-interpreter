@@ -1,3 +1,28 @@
+#### Quickstart
+
+I've added a pre-build clojint.jar to the repo. You might be able to simply download the repo, run ./local_release.clj and start using the examples.
+
+Open your Terminal app and run commands in the terminal. (Granted, there is some implicit background knowledge
+here, like where is the Terminal app, how to enter commands, etc.)
+
+Download this file via your web browser or via curl:
+
+https://github.com/twl8n/clojure-interpreter/archive/master.zip
+
+`curl -LO https://github.com/twl8n/clojure-interpreter/archive/master.zip`
+
+unzip via command line or by double-clicking the master.zip file:
+
+`unzip master.zip`
+
+Unzip will create a local directory called clojure-interpreter-master.
+
+```
+cd clojure-interpreter-master/
+./local_release.clj
+./example_print.clj
+```
+
 #### clojint the clojure interpreter
 
 This project allows you to create a Clojure interpreter. I use it as a replacement for Perl and bash shell automation tasks.
@@ -69,6 +94,10 @@ In clojint/core.clj, two other methods should work:
 
 
 #### todo
+
+- local_release.clj silently fails if target/uberjar/clojint-0.1.0-SNAPSHOT-standalone.jar doesn't exist.
+
+- Is there a substitute for clj-serial which is in a non-https repo?
 
 - Add an example for XML parsing
 
