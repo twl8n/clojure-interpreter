@@ -1,6 +1,8 @@
 #### Quickstart
 
-I've added a pre-build clojint.jar to the repo. You might be able to simply download the repo, run ./local_release.clj and start using the examples.
+These instructions probably work on Mac OS and Linux. Windows users will need bash extensions and/or PowerShell and/or cygwin. 
+
+I've added a pre-built clojint.jar to the repo. You might be able to simply download the repo, run ./local_release.clj and start using the examples.
 
 Open your Terminal app and run commands in the terminal. (Granted, there is some implicit background knowledge
 here, like where is the Terminal app, how to enter commands, etc.)
@@ -46,7 +48,9 @@ export PATH=$PATH:$HOME/bin
 
 #### clojint the clojure interpreter
 
-This project allows you to create a Clojure interpreter. I use it as a replacement for Perl and bash shell automation tasks.
+This project allows you to create a Clojure interpreter. (I added a pre-built clojint.jar to the repo, but
+building via lein has long term advantages.) I use it as a replacement for Perl and bash shell automation
+tasks.
 
 It takes 2 or 3 seconds to spin up the interpreter, but that's much better than ```lien run``` and I've fixed
 the shutdown-agents problem.
