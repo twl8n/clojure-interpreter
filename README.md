@@ -17,10 +17,31 @@ unzip via command line or by double-clicking the master.zip file:
 
 Unzip will create a local directory called clojure-interpreter-master.
 
+Change dir (cd) into the new directory:
+
+`cd clojure-interpreter-master/`
+
+Run the local_release.clj script that will copy the interpreter .jar file to a standard location:
+
+`./local_release.clj`
+
+Run one of the examples to confirm it all worked:
+
+`./example_print.clj`
+
 ```
 cd clojure-interpreter-master/
 ./local_release.clj
 ./example_print.clj
+```
+
+Lots of little things can keep any of these steps from working. If you get error messages, just google them.
+
+One common issue is your path. You might need to add ~/bin and you might need to create ~/bin. These commands may help:
+
+```
+mkdir -p $HOME/bin
+export PATH=$PATH:$HOME/bin
 ```
 
 #### clojint the clojure interpreter
