@@ -1,6 +1,56 @@
+#### Quickstart
+
+These instructions probably work on Mac OS and Linux. Windows users will need bash extensions and/or PowerShell and/or cygwin. 
+
+I've added a pre-built clojint.jar to the repo. You might be able to simply download the repo, run ./local_release.clj and start using the examples.
+
+Open your Terminal app and run commands in the terminal. (Granted, there is some implicit background knowledge
+here, like where is the Terminal app, how to enter commands, etc.)
+
+Download this file via your web browser or via curl:
+
+https://github.com/twl8n/clojure-interpreter/archive/master.zip
+
+`curl -LO https://github.com/twl8n/clojure-interpreter/archive/master.zip`
+
+unzip via command line or by double-clicking the master.zip file:
+
+`unzip master.zip`
+
+Unzip will create a local directory called clojure-interpreter-master.
+
+Change dir (cd) into the new directory:
+
+`cd clojure-interpreter-master/`
+
+Run the local_release.clj script that will copy the interpreter .jar file to a standard location:
+
+`./local_release.clj`
+
+Run one of the examples to confirm it all worked:
+
+`./example_print.clj`
+
+```
+cd clojure-interpreter-master/
+./local_release.clj
+./example_print.clj
+```
+
+Lots of little things can keep any of these steps from working. If you get error messages, just google them.
+
+One common issue is your path. You might need to add ~/bin and you might need to create ~/bin. These commands may help:
+
+```
+mkdir -p $HOME/bin
+export PATH=$PATH:$HOME/bin
+```
+
 #### clojint the clojure interpreter
 
-This project allows you to create a Clojure interpreter. I use it as a replacement for Perl and bash shell automation tasks.
+This project allows you to create a Clojure interpreter. (I added a pre-built clojint.jar to the repo, but
+building via lein has long term advantages.) I use it as a replacement for Perl and bash shell automation
+tasks.
 
 It takes 2 or 3 seconds to spin up the interpreter, but that's much better than ```lien run``` and I've fixed
 the shutdown-agents problem.
@@ -69,6 +119,10 @@ In clojint/core.clj, two other methods should work:
 
 
 #### todo
+
+- local_release.clj silently fails if target/uberjar/clojint-0.1.0-SNAPSHOT-standalone.jar doesn't exist.
+
+- Is there a substitute for clj-serial which is in a non-https repo?
 
 - Add an example for XML parsing
 
@@ -362,6 +416,7 @@ Running example_dynamic_dependency.clj I get this error:
 java.io.FileNotFoundException: Could not locate clj_http/client__init.class or clj_http/client.clj on classpath. Please check that namespaces with dashes use underscores in the Clojure file name., compiling:(/Users/twl/Sites/git_repos/clojure-interpreter/./example_dynamic_dependency.clj:20:1)
 ```
 
+
 #### Standardized on clojure.java.jdbc
 
 At one point I played with funcool's JDBC connector. It has some nice features, but in the end the standard
@@ -396,6 +451,32 @@ client version.
 These are only used for development/debugging. If you have a REPL available on a production server, then it's
 quite alright to have the "Check that your cider version matches the currently deployed version" right next to
 the "Be very careful."
+
+
+#### Graalvm doesn't work
+
+```
+> export JAVA_HOME=/Users/twl/bin/labsjdk1.8.0_161-jvmci-0.42/Contents/Home/    
+> lein uberjar                                                              
+Compiling clojint.core
+Created /Users/twl/src/clojure-interpreter/target/uberjar/clojint-0.1.0-SNAPSHOT.jar
+Created /Users/twl/src/clojure-interpreter/target/uberjar/clojint-0.1.0-SNAPSHOT-standalone.jar
+> ~/bin/graalvm-1.0.0-rc1/Contents/Home/bin/native-image -cp target/uberjar/clojint-0.1.0-SNAPSHOT-standalone.jar clojint.core
+
+... Unsupported constructor java.lang.ClassLoader.<init>(ClassLoader) ...
+```
+
+The following command does build an executable, and that executable fails with the same execption as above:
+
+`~/bin/graalvm-1.0.0-rc1/Contents/Home/bin/native-image -H:+ReportUnsupportedElementsAtRuntime -cp target/uberjar/clojint-0.1.0-SNAPSHOT-standalone.jar clojint.core`
+
+example of something else to try:
+
+`native-image -cp `lein cp`:target/uberjar/hello-0.1.0-SNAPSHOT-standalone.jar hello.core`
+
+Not working. This reports missing directory/file for zillions of paths and files that simply don't exist and never will.
+
+`~/bin/graalvm-1.0.0-rc1/Contents/Home/bin/native-image -cp `lein cp`:target/uberjar/clojint-0.1.0-SNAPSHOT-standalone.jar clojint.core`
 
 #### License
 

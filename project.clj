@@ -11,7 +11,7 @@
                  [org.clojure/data.codec "0.1.1"]
                  [org.xerial/sqlite-jdbc "3.21.0"]
                  [org.postgresql/postgresql "42.1.4"]
-                 [clj-serial "2.0.4-SNAPSHOT"]
+                 ;; [clj-serial "2.0.4-SNAPSHOT"] ;; Doesn't use https, lein refuses to download.
                  [de.ubercode.clostache/clostache "1.4.0"]
                  [joda-time "2.9.9"]
                  [com.cemerick/pomegranate "1.0.0" :exclusions [org.clojure/clojure]] ;; Dynamically load dependencies
