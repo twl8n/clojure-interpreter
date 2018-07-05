@@ -5,10 +5,6 @@
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [com.layerware/hugsql "0.4.8"] ;; standard, use with standard clojure.java.jdbc
-                 [com.layerware/hugsql-core "0.4.8"] ;; use with funcool/clojure.jdbc
-                 [com.layerware/hugsql-adapter-clojure-jdbc "0.4.8"] ;; use with funcool/clojure.jdbc
-                 ;; Don't use funcool/clojure.jdbc
-                 ;; [funcool/clojure.jdbc "0.9.0"] ;; use with hugsql-core and hugsql-adapter-clojure-jdbc
                  [org.clojure/java.jdbc "0.7.5"]
                  [org.clojure/tools.namespace "0.2.11"]
                  [org.clojure/data.xml "0.0.8"]

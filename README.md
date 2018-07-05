@@ -108,7 +108,6 @@ Checking connectivity... done.
 > cd clojure-interpreter
 > lein uberjar
 Retrieving com/layerware/hugsql-adapter-clojure-jdbc/0.4.8/hugsql-adapter-clojure-jdbc-0.4.8.pom from clojars
-Retrieving funcool/clojure.jdbc/0.9.0/clojure.jdbc-0.9.0.pom from clojars
 Retrieving org/xerial/sqlite-jdbc/3.21.0/sqlite-jdbc-3.21.0.pom from central
 Retrieving clojure/java-time/clojure.java-time/0.3.1/clojure.java-time-0.3.1.pom from clojars
 Retrieving clj-time/clj-time/0.14.2/clj-time-0.14.2.pom from clojars
@@ -119,7 +118,6 @@ Retrieving org/imgscalr/imgscalr-lib/4.2/imgscalr-lib-4.2.jar from central
 Retrieving com/layerware/hugsql-adapter-clojure-jdbc/0.4.8/hugsql-adapter-clojure-jdbc-0.4.8.jar from clojars
 Retrieving clojure/java-time/clojure.java-time/0.3.1/clojure.java-time-0.3.1.jar from clojars
 Retrieving image-resizer/image-resizer/0.1.9/image-resizer-0.1.9.jar from clojars
-Retrieving funcool/clojure.jdbc/0.9.0/clojure.jdbc-0.9.0.jar from clojars
 Retrieving clj-time/clj-time/0.14.2/clj-time-0.14.2.jar from clojars
 Compiling clojint.core
 Created /home/ubuntu/src/clojure-interpreter/target/uberjar/clojint-0.1.0-SNAPSHOT.jar
@@ -363,6 +361,41 @@ Running example_dynamic_dependency.clj I get this error:
 (clojure.core/load "/clj_http/client")
 java.io.FileNotFoundException: Could not locate clj_http/client__init.class or clj_http/client.clj on classpath. Please check that namespaces with dashes use underscores in the Clojure file name., compiling:(/Users/twl/Sites/git_repos/clojure-interpreter/./example_dynamic_dependency.clj:20:1)
 ```
+
+#### Standardized on clojure.java.jdbc
+
+At one point I played with funcool's JDBC connector. It has some nice features, but in the end the standard
+Clojure java jdbc connector is probably more future proof, and more standard.
+
+From the old project.clj:
+
+```
+[com.layerware/hugsql-core "0.4.8"] ;; use with funcool/clojure.jdbc
+[com.layerware/hugsql-adapter-clojure-jdbc "0.4.8"] ;; use with funcool/clojure.jdbc
+[funcool/clojure.jdbc "0.9.0"] ;; use with hugsql-core and hugsql-adapter-clojure-jdbc
+```
+
+
+#### Leiningen profiles and project.clj
+
+```
+[cider/cider-nrepl "0.17.0"]
+[org.clojure/tools.nrepl "0.2.13"]
+```
+
+Question: Is it better to have these in each project.clj or my (global-ish) ~/.lein/profile.clj? At the moment, the
+nrepl dependency is in profile.clj, and I keep the tools dependency in each app's project.clj.
+
+What should I do for my public git repos where people will download something and have to deal with my
+project.clj? It seems odd to say "Installation: edit your profile.clj to include additional deps..."
+
+Answer: I'd say always on the `profiles.clj`. Although you could put that on the project (as it's shared
+between all the nrepl clients), there is a strong binding between its version and the particular IDE's nrepl
+client version.
+
+These are only used for development/debugging. If you have a REPL available on a production server, then it's
+quite alright to have the "Check that your cider version matches the currently deployed version" right next to
+the "Be very careful."
 
 #### License
 

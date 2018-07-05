@@ -17,7 +17,8 @@
 ;; Hugsql macros must be outside defn and come before any mention of functions that they will create at
 ;; compile time (or is it run time?). Two functions will be created for each :name in full.sql. 
 
-(hugsql/def-db-fns (clojure.java.io/as-file "full.sql"))
+(hugsql/def-db-fns (clojure.java.io/as-file "full.sql")
+  {:adapter (adapter/hugsql-adapter-clojure-jdbc)})
 (hugsql/def-sqlvec-fns (clojure.java.io/as-file "full.sql"))
 
 (defn -main
