@@ -120,6 +120,29 @@ In clojint/core.clj, two other methods should work:
 
 #### todo
 
+- if target/uberjar/clojint-0.1.0-SNAPSHOT-standalone.jar is newer than clojint.jar, then use newer
+
+- mkdir -p ~/bin
+
+- run the repl of clojint: java -cp ~/bin/clojint.jar clojure.main
+
+- Clojure https://clojure.org/guides/getting_started#_installation_on_linux
+
+
+
+- lein install https://leiningen.org/
+
+```
+cd ~/bin
+curl -O https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
+chmod +x lein
+./lein
+```
+curl -O https://download.clojure.org/install/linux-install-1.9.0.391.sh
+chmod +x linux-install-1.9.0.391.sh
+sudo ./linux-install-1.9.0.391.sh
+```
+
 - local_release.clj silently fails if target/uberjar/clojint-0.1.0-SNAPSHOT-standalone.jar doesn't exist.
 
 - Is there a substitute for clj-serial which is in a non-https repo?
@@ -133,6 +156,13 @@ In clojint/core.clj, two other methods should work:
 - Continue with the experiment to dynamically load modules.
 
 - what is :omit-source and does it have anything to do with lein uberjar? Will using it make a smaller uberjar? Would a smaller uberjar be an advantage besides saving disk?
+
+- Can the clojint use rlwrap just like Clojure clj? (Yes, and ^C exits, just like clj)
+
+```
+rlwrap -r -q '\"' -b "(){}[],^%#@\";:'" java -cp ~/bin/clojint.jar clojure.main "$@"
+```
+
 
 ```
 :omit-source true
