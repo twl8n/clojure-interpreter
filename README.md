@@ -177,12 +177,27 @@ https://www.in-ulm.de/~mascheck/various/shebang/
 
 #### Installing
 
-Clojint requires Leiningen (and Clojure). https://leiningen.org Leiningen has a self-install script, and Leiningen will install Clojure. In fact, installing Leiningen is the easiest way to install (and use) Clojure. Once Leiningen is installed, clone the clojure interpreter git repository, and, change into that directory, and run ```lein uberjar```.
+If you do not have a github account, you can clone the repository anonymously:
+
+```
+git clone git://github.com/twl8n/clojure-interpreter.git
+```
+
+If you have a github account, and your computer is set up for command line ssh access to github, then this command should work:
+```
+git clone git@github.com:twl8n/clojure-interpreter.git
+```
+
+
+Clojint requires Leiningen (and Clojure). https://leiningen.org Leiningen has a self-install script, and
+Leiningen will install Clojure. In fact, installing Leiningen is the easiest way to install (and use) Clojure.
+Once Leiningen is installed, clone the clojure interpreter git repository, and, change into that directory,
+and run ```lein uberjar```.
 
 Here is a terminal session transcript:
 
 ```
-> git clone git@github.com:twl8n/clojure-interpreter.git
+> git clone git://github.com/twl8n/clojure-interpreter.git
 Cloning into 'clojure-interpreter'...
 remote: Counting objects: 55, done.
 remote: Compressing objects: 100% (37/37), done.
