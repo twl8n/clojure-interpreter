@@ -7,9 +7,17 @@
 ;; If drip is found by which, use that as the java-cmd.
 
 (let [home (System/getenv "HOME")
+      local-bin (str home "/bin")
       clojint-sh (str home "/bin/clojint.sh")
       clojint-jar (str home "/bin/clojint.jar")
       java-cmd (or (not-empty (clojure.string/trim (:out (shell/sh "which" "drip")))) "java")]
+
+  (if (not (.exists (io/as-file local-bin)))
+    (do
+      ;; (shell/sh "mkdir " "-p" local-bin)
+      (println "Creating bin: " local-bin)
+      (io/make-parents (str local-bin "/tmp.txt"))))
+
 
   ;; When we're using drip, kill any existing daemon before building and deploying
   ;; a new copy of the interpreter. Oh, and warn the user.
