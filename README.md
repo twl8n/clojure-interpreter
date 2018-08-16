@@ -410,6 +410,18 @@ https://stackoverflow.com/questions/27833454/how-to-use-a-lein-exec-task-in-rele
 [Maria Cloud, interactive beginner Clojure exercises running in your web browser](https://www.maria.cloud/)
 
 
+#### Reading list
+
+The clojure interpreter is software for daily scripting, and for learning. In keeping with the learning theme, here is a fledgling reading list:
+
+[Beating the Averages, Paul Graham, where he introduces the Blub Paradox](http://www.paulgraham.com/avg.html)
+
+["Out of the Tar Pit", Ben Moseley, Peter Marks](https://github.com/papers-we-love/papers-we-love/blob/master/design/out-of-the-tar-pit.pdf)
+
+[Papers we love at Github](https://github.com/papers-we-love/papers-we-love)
+
+
+
 #### Experiments
 
 See experiments.clj
@@ -526,16 +538,6 @@ Not working. This reports missing directory/file for zillions of paths and files
 
 `~/bin/graalvm-1.0.0-rc1/Contents/Home/bin/native-image -cp `lein cp`:target/uberjar/clojint-0.1.0-SNAPSHOT-standalone.jar clojint.core`
 
-
-#### Reading list
-
-The clojure interpreter is software for daily scripting, and for learning. In keeping with the learning theme, here is a fledgling reading list:
-
-[Beating the Averages, Paul Graham, where he introduces the Blub Paradox](http://www.paulgraham.com/avg.html)
-
-["Out of the Tar Pit", Ben Moseley, Peter Marks](https://github.com/papers-we-love/papers-we-love/blob/master/design/out-of-the-tar-pit.pdf)
-
-[Papers we love at Github](https://github.com/papers-we-love/papers-we-love)
 
 #### License
 
