@@ -528,7 +528,7 @@ Not working. This reports missing directory/file for zillions of paths and files
 
 The clojure interpreter is software for daily scripting, and for learning. In keeping with the learning theme, here is a fledgling reading list:
 
-* [Paul Graham "Beating the Averages" where he introduces the Blub Paradox] (http://www.paulgraham.com/avg.html)
+[Paul Graham "Beating the Averages" where he introduces the Blub Paradox](http://www.paulgraham.com/avg.html)
 
 
 #### License
