@@ -5,7 +5,9 @@ Clojure, Perl, Python, Java, Ruby, JavaScript, C, C++, C#, Racket, Erlang, Haske
 
 #### Web technologies
 
-HTML, SOAP, REST, CGI, http, Apache, Ring, node
+HTML, CSS, SOAP, REST, CGI, http, Apache, Tomcat/Jetty, nginx
+
+Clojure-Ring, node-http, Python WSGI, Ruby Rack
 
 #### SQL RDBMS
 
@@ -23,7 +25,7 @@ DynamoDB, MongoDB
 
 #### Version control
 
-Git (Maybe Subversion, CVS, RCS, SCCS)
+Git, Subversion, CVS, RCS, SCCS
 
 #### Data interchange
 
@@ -47,4 +49,10 @@ make, lein
 
 #### Misc
 
-office suite (MS Office, Libre Office), vector drawing, bitmap drawing, 
+office suite (MS Office, Libre Office), vector drawing, bitmap drawing,
+
+ssh, gpg,
+
+#### Regular expressions
+
+Everyone should have some foundations in regular expressions.
