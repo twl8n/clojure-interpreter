@@ -16,7 +16,8 @@
     (do
       ;; (shell/sh "mkdir " "-p" local-bin)
       (println "Creating bin: " local-bin)
-      (io/make-parents (str local-bin "/tmp.txt"))))
+      (io/make-parents (str local-bin "/tmp.txt"))
+      (prn "done")))
 
 
   ;; When we're using drip, kill any existing daemon before building and deploying
