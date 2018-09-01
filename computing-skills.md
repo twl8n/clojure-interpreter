@@ -17,7 +17,7 @@ Datomic is an ACID database, but lacks a mangement system
 
 #### Integrated Development Environments
 
-Emacs, Eclipse, IntelliJ, Komodo
+Emacs, Eclipse, IntelliJ IDEA, Microsoft Visual Studio, NetBeans, Komodo, DrRacket
 
 #### No-SQL
 
