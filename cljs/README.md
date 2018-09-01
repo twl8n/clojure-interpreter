@@ -32,6 +32,8 @@ Don't do this:
 
 `clj -m cljs.main --help | less`
 
+https://stackoverflow.com/questions/27503528/how-to-execute-a-single-clojurescript-file-as-a-script
+
 ```
 > clj --main cljs.main -i example_print.clj -t node
 Exception in thread "main" java.lang.AssertionError: Assert failed: :nodejs target with :none optimizations requires a :main entry
