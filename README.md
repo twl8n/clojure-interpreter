@@ -1,5 +1,7 @@
 #### Quickstart
 
+This document is evolving.
+
 These instructions probably work on Mac OS and Linux. Windows users will need bash extensions and/or PowerShell and/or cygwin. 
 
 I've added a pre-built clojint.jar to the repo. You might be able to simply download the repo, run ./local_release.clj and start using the examples.
