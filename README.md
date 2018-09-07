@@ -541,6 +541,14 @@ Not working. This reports missing directory/file for zillions of paths and files
 
 `~/bin/graalvm-1.0.0-rc1/Contents/Home/bin/native-image -cp `lein cp`:target/uberjar/clojint-0.1.0-SNAPSHOT-standalone.jar clojint.core`
 
+#### Github
+
+https://stackoverflow.com/questions/35619305/enabling-git-in-windows-10-command-line
+
+https://superuser.com/questions/960378/how-do-i-make-githubs-git-shell-appear-in-windows-10-search
+
+https://help.github.com/desktop/guides/getting-started-with-github-desktop/installing-github-desktop/#platform-windows
+
 
 #### License
 
