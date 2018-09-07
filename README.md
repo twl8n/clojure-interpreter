@@ -421,6 +421,7 @@ The clojure interpreter is software for daily scripting, and for learning. In ke
 [Papers we love at Github](https://github.com/papers-we-love/papers-we-love)
 
 
+[Clojure Programming Concepts](https://en.wikibooks.org/wiki/Clojure_Programming/Concepts)
 
 #### Experiments
 
