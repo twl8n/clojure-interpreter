@@ -411,6 +411,31 @@ https://stackoverflow.com/questions/27833454/how-to-use-a-lein-exec-task-in-rele
 
 [Maria Cloud, interactive beginner Clojure exercises running in your web browser](https://www.maria.cloud/)
 
+#### Amazon Web Services
+
+AWS Cloud9 is a nifty way to learn to program. There is nothing to install, but you do have to run the gauntlet of AWS strangeness. It is worth it, and new users get 1 year of free services. If you create your own account, you will be a "root" user. You will experience some odd behavior, which I hope to document soon. Short answer: ignore the AWS warning about "root login detected" and simply do your work. Creating an IAM user is an advanced topic.
+
+If someone has created an IAM user account for you, and shared their Cloud9 environment with you, and assuming
+their environment is in US East (Ohio) you need to do this:
+
+After logging in (as a non-root user):
+
+- Services -> Cloud9 (under Developer Tools, or use the search)
+- Select a region -> US East (Ohio)
+- Hamburger (upper left under AWS) -> Shared with you
+- Open IDE 
+
+There are two Open IDE links. I think they are the same. It takes a couple of minutes for the IDE to fully
+open because AWS is actually launching an EC2 linux server.
+
+Confusingly, if you don't select a region, AWS will keep showing the Cloud9 intro page, no matter what options
+you choose. This is typical of AWS where something is always broken and/or weird. You never get used to it
+because you are always discovering some new, bizarre issue. Feel free to complain. It isn't clear that Google
+cloud is any better, and I suspect Azure is worse.
+
+Cloud9 is very cool.
+
+
 
 #### Reading list
 

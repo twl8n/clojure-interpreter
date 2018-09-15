@@ -6,6 +6,9 @@
             [clojure.tools.namespace.repl :as tnr]))
 
 (def my-vec [1 2 3 4])
+
+(def my-vec [1 2 3 4 5 6 ])
+
 (prn "count of my-vec: "(count my-vec))
 
 (def my-list '(1 2 3 4))
