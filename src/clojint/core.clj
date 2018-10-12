@@ -23,6 +23,8 @@
     (apply core-printf fmt args)
     (flush)))
 
+;; java -cp target/uberjar/clojint-standalone.jar clojint.core
+
 (defn -main
   [& args]
   (if (some->> args
