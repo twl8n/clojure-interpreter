@@ -1,4 +1,4 @@
-(defproject clojint "0.1.0-SNAPSHOT"
+(defproject clojint ""
   :description "Simple Clojure interpreter."
   :url "https://github.com/twl8n/clojure-interpreter"
   :license {:name "Eclipse Public License"
@@ -23,5 +23,7 @@
                  [org.imgscalr/imgscalr-lib "4.2"]
                  [image-resizer "0.1.9"]]
   :main ^:skip-aot clojint.core
+  :uberjar-name "clojint-standalone.jar"
+  :jar-name "clojint.jar"
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all}})
