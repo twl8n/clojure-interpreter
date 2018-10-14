@@ -389,7 +389,8 @@ This error probably means you are trying to require a package when you should be
 
 This error:
 ```
-java.lang.IllegalArgumentException: db-spec org.sqlite.SQLiteConnection@1d23ff23 is missing a required parameter, compiling:(/Users/twl/Sites/git_repos/clojure-interpreter/./example_sqlite_1.clj:68:1)
+java.lang.IllegalArgumentException: db-spec org.sqlite.SQLiteConnection@1d23ff23 is missing a required
+parameter, compiling:(/Users/twl/Sites/git_repos/clojure-interpreter/./example_sqlite_1.clj:68:1)
 ```
 
 Fixed by turning `(jdbc/get-connection dbspec-sqlite)`
@@ -412,13 +413,25 @@ https://stackoverflow.com/questions/27833454/how-to-use-a-lein-exec-task-in-rele
 
 #### Links
 
+[Maria Cloud, interactive beginner Clojure exercises running in your web browser](https://www.maria.cloud/)
+
+Maria Cloud "Learn Clojure with Shapes" walks you through sample Clojure statements, explaining everything. You run the statements in your browser at the Maria Cloud web site. Note: at the bottom of the page is a brief description of the command near your cursor.
+
+Maria Cloud is a great way to instantly try out some Clojure commands. 
+
 [Getting Started with Clojure](https://clojure.org/guides/getting_started)
 
-[Maria Cloud, interactive beginner Clojure exercises running in your web browser](https://www.maria.cloud/)
+Getting started with Clojure is a guide for experience programmers who are new to Clojure. There is an
+expectation that you have passing familiarity with Linux command line and that you have a text editor or IDE
+that you're comfortable with.
 
 #### Amazon Web Services
 
-AWS Cloud9 is a nifty way to learn to program. There is nothing to install, but you do have to run the gauntlet of AWS strangeness. It is worth it, and new users get 1 year of free services. If you create your own account, you will be a "root" user. You will experience some odd behavior, which I hope to document soon. Short answer: ignore the AWS warning about "root login detected" and simply do your work. Creating an IAM user is an advanced topic.
+AWS Cloud9 is a nifty way to learn to program. There is nothing to install, but you do have to run the
+gauntlet of AWS strangeness (unless someone sets it up for you). Cloud9 is worth the effort, and new users get
+1 year of free services. If you create your own account, you will be a "root" user. You will experience some
+odd behavior, which I hope to document soon. Short answer: ignore the AWS warning about "root login detected"
+and simply do your work. Creating an IAM user is an advanced topic.
 
 If someone has created an IAM user account for you, and shared their Cloud9 environment with you, and assuming
 their environment is in US East (Ohio) you need to do this:
