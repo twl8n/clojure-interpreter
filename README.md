@@ -360,7 +360,9 @@ pkill -fl drip
 #### Working with shell commands from Clojure
 
 https://stackoverflow.com/questions/36740239/clojure-how-to-execute-shell-commands-with-piping
+
 right: `(shell/sh "bash" "-c" "ls -a | grep Doc")`
+
 wrong: `(shell/sh "bash" "-c" "ls -a" "|" "grep Doc")`
 
 See example_3.clj
