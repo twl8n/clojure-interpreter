@@ -390,8 +390,10 @@ This error probably means you are trying to require a package when you should be
 This error:
 ```
 java.lang.IllegalArgumentException: db-spec org.sqlite.SQLiteConnection@1d23ff23 is missing a required parameter, compiling:(/Users/twl/Sites/git_repos/clojure-interpreter/./example_sqlite_1.clj:68:1)
+```
 
 Fixed by turning `(jdbc/get-connection dbspec-sqlite)`
+
 into `{:connection (jdbc/get-connection dbspec-sqlite)}`
 
 
