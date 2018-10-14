@@ -102,8 +102,12 @@ problem if the deps happen to be broken.
 In Clojure the only print function that calls flush is prn. Since many scripting applications need unbuffered output
 I've hacked together a method to make printf unbuffered. In your script call ```(clojint.core/unbuf-printf)```
 
-In a script where you defn printf, the only way to quiet the warning `WARNING: printf already refers to: #'clojure.core/printf in namespace: user, being replaced by: #'user/printf
-` is to use the (ns ... (:refer-clojure ...))
+In a script where you defn printf, the only way to quiet the warning
+
+`WARNING: printf already refers to: #'clojure.core/printf in namespace: user, being replaced by: #'user/printf`
+
+is to use the (ns ... (:refer-clojure ...))
+
 ```
 (ns ecs-content
   (:require [clojure.java.shell :as shell]
@@ -119,7 +123,6 @@ In clojint/core.clj, two other methods should work:
 (refer-clojure :exclude [printf])
 ```
 
-
 #### todo
 
 - if target/uberjar/clojint-0.1.0-SNAPSHOT-standalone.jar is newer than clojint.jar, then use newer
@@ -130,16 +133,15 @@ In clojint/core.clj, two other methods should work:
 
 - Clojure https://clojure.org/guides/getting_started#_installation_on_linux
 
-
-
 - lein install https://leiningen.org/
+
+
 
 ```
 cd ~/bin
 curl -O https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
 chmod +x lein
 ./lein
-```
 curl -O https://download.clojure.org/install/linux-install-1.9.0.391.sh
 chmod +x linux-install-1.9.0.391.sh
 sudo ./linux-install-1.9.0.391.sh
@@ -163,14 +165,11 @@ sudo ./linux-install-1.9.0.391.sh
 
 ```
 rlwrap -r -q '\"' -b "(){}[],^%#@\";:'" java -cp ~/bin/clojint.jar clojure.main "$@"
-```
 
-
-```
 :omit-source true
 ```
 
-- what is ```jar -cvfe``` and how would one use it with clojure? 
+- what is `jar -cvfe` and how would one use it with clojure? 
 
 - update install and exec due to limitations in shebang. 
 
@@ -194,7 +193,7 @@ git clone git@github.com:twl8n/clojure-interpreter.git
 Clojint requires Leiningen (and Clojure). https://leiningen.org Leiningen has a self-install script, and
 Leiningen will install Clojure. In fact, installing Leiningen is the easiest way to install (and use) Clojure.
 Once Leiningen is installed, clone the clojure interpreter git repository, and, change into that directory,
-and run ```lein uberjar```.
+and run `lein uberjar`.
 
 Here is a terminal session transcript:
 
@@ -275,7 +274,9 @@ Created /Users/twl/Sites/git_repos/clojure-interpreter/target/uberjar/clojint-0.
 >
 ```
 
-I use a shell script to wrap a java -jar command. -jar only takes an explicit filename. The shebang (#!) will not interpolate paths. As a result, you cannot say "#!java -jar ~/bin/clojint.jar" or "#!/java -jar $HOME/clojint.jar". 
+I use a shell script to wrap a java -jar command. -jar only takes an explicit filename. The shebang (#!) will
+not interpolate paths. As a result, you cannot say "#!java -jar ~/bin/clojint.jar" or "#!/java -jar
+$HOME/clojint.jar".
 
 
 Other people have thought about making an uberjar an executable:
@@ -574,6 +575,28 @@ https://superuser.com/questions/960378/how-do-i-make-githubs-git-shell-appear-in
 
 https://help.github.com/desktop/guides/getting-started-with-github-desktop/installing-github-desktop/#platform-windows
 
+#### AWS command line interface
+
+Often the most efficient way to interact with AWS is via the command line interface, the cli. For AWS this is a Python tool the awscli, or simple aws.
+
+https://docs.aws.amazon.com/cli/latest/userguide/installing.html
+
+If you choose to use Python 3, the use pip3 instead of pip.
+
+```
+# install just for one user (recommended):
+pip3 install awscli --upgrade --user
+
+# install for all users:
+sudo pip3 install awscli --upgrade
+
+# Where did pip3 install a package (more or less)
+pip3 show awscli
+
+# After install, if there was already something on the path. Refresh Linux/Mac path search:
+rehash
+
+```
 
 #### License
 
