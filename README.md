@@ -451,7 +451,26 @@ you choose. This is typical of AWS where something is always broken and/or weird
 because you are always discovering some new, bizarre issue. Feel free to complain. It isn't clear that Google
 cloud is any better, and I suspect Azure is worse.
 
-Cloud9 is very cool.
+Cloud9 is fairly cool, but not fully cooked.
+
+Do this:
+
+- Login as the non-root user (root user must not be logged in anywhere in AWS)
+
+- Go to a project with a lambda, open the "AWS Resources" panel. Right click on the local lambda and choose "deploy".
+
+- It fails:
+
+"AWS CloudFormation deployment errors
+The following errors were encountered when deploying your application
+The security token included in the request has expired"
+
+This is an epic failure in an environment where the purpose of shared accounts is learning to code, especially
+learning to use Lambda. The students can't deploy a remote lambda, at least not from withing the Cloud9 IDE.
+Pretty typical AWS half baked.
+
+The error dialog box text is also not selectable, so you have to manually type the error into a web browser to
+search for a resolution.
 
 
 
@@ -612,6 +631,22 @@ pip3 show awscli
 
 # After install, if there was already something on the path. Refresh Linux/Mac path search:
 rehash
+
+```
+
+#### AWS Cloud9 via awscli
+
+If you are not in us-east-1 and/or if your `~/.aws/config` specifies us-east-1, but your envs are in some other region, there won't be any output, and no errors or warnings.
+
+```
+# Describes all members:
+aws cloud9 --region us-east-2 describe-environment-memberships --environment-id <your env id>
+
+# Only describes the owner/default]:
+aws cloud9 --region us-east-2 describe-environment-memberships
+
+# Describes the envs for zeus:
+aws cloud9 describe-environment-memberships --profile zeus --region us-east-2
 
 ```
 
