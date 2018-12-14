@@ -1,3 +1,9 @@
+(reduce (fn [map [kk vv]] (assoc map kk (str "xx" vv))) {} [[:foo 1] [ :bar 2] [ :baz 33]])
+(reduce (fn [map [kk vv]] (assoc map kk (str "xx" vv))) {} (seq {:foo 1 :bar 2 :baz 33}))
+(reduce (fn [map [kk vv]] (assoc map kk (str "xx" vv))) {} {:foo 1 :bar 2 :baz 33})
+(reduce-kv (fn [map kk vv] (assoc map kk (str "xx" vv))) {} {:foo 1 :bar 2 :baz 33})
+;; => {:foo "xx1", :bar "xx2", :baz "xx33"}
+
 (require '[clj-http.client :as client] :verbose)
 (def get-list
   ["http://laudeman.com/r1100rt/piaa_r1100rt.html"
