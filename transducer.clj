@@ -1,6 +1,7 @@
-(ns exptrans
-  (:require [clojure.string :as str]
-            [clojure.java.shell :as shell]))
+(ns exptrans)
+
+;; usage:
+;; clj transducer.clj
 
 (def myvec (range 10000))
 
