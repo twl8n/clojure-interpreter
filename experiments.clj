@@ -1,3 +1,64 @@
+(require '[clj-http.client :as client] :verbose)
+(def get-list
+  ["http://laudeman.com/r1100rt/piaa_r1100rt.html"
+   "http://laudeman.com/sorghum/"
+   "http://laudeman.com/bug.html"
+   "http://laudeman.com/volkswagen/"
+   "http://laudeman.com/hondavfr/"
+   "http://laudeman.com/timeout.pl"])
+
+(defn gands [url suffix]
+  (doall (pmap (fn [xx]
+                 (let [body (:body (client/get xx))
+                       fname (format "%s-%s.html" (second (re-find #".*/(.*)/" xx)) suffix)]
+                   (spit fname body)
+                   fname)) [url])))
+
+(def foo (client/get "http://laudeman.com/hondavfr/"
+                     {:async? true}
+                     ;; respond callback
+                     (fn [response] response)
+                     ;; raise callback
+                     (fn [exception] (println "exception message is: " (.getMessage exception)) response)))
+
+
+
+(defn gands [url suffix]
+  (client/with-connection-pool {:timeout 5 :threads 4 :insecure? false :default-per-route 10 :throw-exceptions false}
+    (doall (pmap (fn [xx]
+                   (let [body (:body
+                               (client/get
+                                xx
+                                {:async? true}
+                                ;; respond callback
+                                (fn [response] response)
+                                ;; raise callback
+                                (fn [exception] (println "exception message is: " (.getMessage exception)) exception)))
+                         fname (format "%s-%s.html" (second (re-find #".*/(.*)/" xx)) suffix)]
+                     (spit fname body)
+                     fname)) [url]))))
+
+
+(defn gands [url suffix]
+  (doall (pmap (fn [xx]
+                 (let [body (:body
+                             (client/get
+                              xx
+                              {:async? true}
+                              ;; respond callback
+                              (fn [response] response)
+                              ;; raise callback
+                              (fn [exception] (println "exception message is: " (.getMessage exception)) exception)))
+                       fname (format "%s-%s.html" (second (re-find #".*/(.*)/" xx)) suffix)]
+                   (spit fname body)
+                   fname)) [url])))
+
+
+
+
+(def foo (do (doall (pmap #(do (gands % 1) (gands % 2)) get-list)) (mapv #(gands % 3) get-list)))
+
+
 ;; Maybe Alemic works?
 
 ;; Use boot instead, which has its own built-in dynamic module installer
