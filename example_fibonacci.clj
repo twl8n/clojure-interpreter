@@ -1,3 +1,6 @@
+;; Usage:
+;; clojure example_fibonacci.clj
+
 (defn fibonacci-loop
   "Creates a vector with the first x numbers in the Fibonacci sequence...using a loop"
   [x]
@@ -43,3 +46,10 @@
    (if (> xx 2)
      (fibonacci-recursive (- xx 1) (into fibby [(+ (last fibby) (second (reverse fibby)))]))
      fibby)))
+
+(def ncount 50)
+
+(printf "        fibonacci-loop: %s\n" (fibonacci-loop ncount))
+(printf "   fibonacci-recursive: %s\n" (fibonacci-recursive ncount))
+(printf "fibonacci-recursive-v2: %s\n" (fibonacci-recursive-v2 ncount))
+
