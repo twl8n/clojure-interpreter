@@ -4,6 +4,12 @@
 (reduce-kv (fn [map kk vv] (assoc map kk (str "xx" vv))) {} {:foo 1 :bar 2 :baz 33})
 ;; => {:foo "xx1", :bar "xx2", :baz "xx33"}
 
+`(defn reducer ([] nil)([r] nil)([r v] (println v)))`
+`(transduce identity reducer [1 2 3])`
+
+ (transduce (map identity) (completing (fn [coll i] (println i))) [] [1 2 3])
+
+
 (require '[clj-http.client :as client] :verbose)
 (def get-list
   ["http://laudeman.com/r1100rt/piaa_r1100rt.html"
@@ -195,3 +201,4 @@
   "If not for the :refer-clojure statement in ns, re-def-ing printf would cause a warning."
   []
   mbody)
+

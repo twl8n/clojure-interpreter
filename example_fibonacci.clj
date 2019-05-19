@@ -30,3 +30,16 @@
    (if (> x 2)
      (fibonacci-recursive (- x 1) (into fibby [(+ (last fibby) (second (reverse fibby)))]))
      fibby)))
+
+(defn fibonacci-recursive-v2
+  "Creates a vector with the first x numbers in the Fibonacci sequence...but does it recursively"
+  ([xx]
+   (cond
+     (= xx 0) []
+     (= xx 1) [0]
+     (= xx 2) [0 1]
+     (> xx 2) (fibonacci-recursive xx [0 1])))
+  ([xx fibby]
+   (if (> xx 2)
+     (fibonacci-recursive (- xx 1) (into fibby [(+ (last fibby) (second (reverse fibby)))]))
+     fibby)))
