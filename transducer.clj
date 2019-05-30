@@ -25,6 +25,10 @@
    (partial map #(/ % 10.0))
    (partial map #(+ 3 %))))
 
+(defn rxn [& args]
+  (when (= 2 (count args)) (prn "yy:" (second args)))
+  nil)
+
 ;; Calling rxr via the transduce in comment will first call rxr with no args returning []
 ;; Then it is called with the previous return and each element of myvec until myvec is exhausted
 ;; Finally, it is called with the finaly return as a single arg.
@@ -33,9 +37,24 @@
   ([xx] (prn "one arg" xx) xx)
   ([xx yy] (prn "two args" xx yy) (conj xx yy)))
 
-(defn rxn [& args]
-  (when (= 2 (count args)) (prn "yy:" (second args)))
-  nil)
+(transduce (comp
+              (map #(* 4 %))
+              (map #(+ 3 %))
+              (mapcat (fn [xx] (let [zz (+ 1 xx)] [xx zz]))))
+             rxr
+             [0 1 2 3 4])
+
+(require '[clojure.string])
+(apply concat (map #(clojure.string/split % #"\d") ["aa1bb" "cc2dd" "ee3ff"]))
+
+
+(def foo [1 2 3])
+(defn bar
+  [aa bb cc]
+  (+ aa bb cc))
+(apply bar foo)
+
+
 
 (comment
   (transduce foo rxr myvec)
