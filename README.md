@@ -1,3 +1,73 @@
+#### GraalVM
+
+The GraalVM .tar.gz is 330M.
+https://github.com/taylorwood/clj.native-image
+
+
+```
+wget https://github.com/oracle/graal/releases/download/vm-19.2.0.1/graalvm-ce-darwin-amd64-19.2.0.1.tar.gz
+tar -xzf graalvm-ce-darwin-amd64-19.2.0.1.tar.gz
+sudo mv graalvm-ce-19.2.0.1/ /Library/Java/JavaVirtualMachines
+/usr/libexec/java_home -V
+/usr/libexec/java_home -v 1.8
+# edit .zshrc
+source ~/.zshrc
+java -version
+gu install native-image
+cd ~/clojure-interpreter
+clojure -A:native-image
+ls -l core
+./core
+```
+edit your ~/.bash_profile, ~/.bashrc, or ~/.zshrc
+
+```
+export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
+export PATH=$JAVA_HOME/bin:$PATH
+```
+
+```
+> /usr/libexec/java_home -V
+Matching Java Virtual Machines (2):
+    1.8.0_221, x86_64:	"GraalVM CE 19.2.0.1"	/Library/Java/JavaVirtualMachines/graalvm-ce-19.2.0.1/Contents/Home
+    1.8.0_131, x86_64:	"Java SE 8"	/Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home
+
+/Library/Java/JavaVirtualMachines/graalvm-ce-19.2.0.1/Contents/Home
+> which native-image
+/Library/Java/JavaVirtualMachines/graalvm-ce-19.2.0.1/Contents/Home/bin/native-image
+> clojure -A:native-image
+Cloning: https://github.com/taylorwood/clj.native-image.git
+Checking out: https://github.com/taylorwood/clj.native-image.git at 7708e7fd4572459c81f6a6b8e44c96f41cdd92d4
+Downloading: org/clojure/tools.deps.alpha/0.7.516/tools.deps.alpha-0.7.516.pom from https://repo1.maven.org/maven2/
+Downloading: org/slf4j/jcl-over-slf4j/1.7.25/jcl-over-slf4j-1.7.25.jar from https://repo1.maven.org/maven2/
+Downloading: org/clojure/tools.deps.alpha/0.7.516/tools.deps.alpha-0.7.516.jar from https://repo1.maven.org/maven2/
+Compiling clojint.core
+Compiling clojint.foo
+Compiling core
+[core:2074]    classlist:  15,576.16 ms
+[core:2074]        (cap):   5,548.07 ms
+[core:2074]        setup:   8,569.80 ms
+[core:2074]   (typeflow):  10,589.28 ms
+[core:2074]    (objects):   4,956.73 ms
+[core:2074]   (features):     728.29 ms
+[core:2074]     analysis:  16,644.38 ms
+[core:2074]     (clinit):     350.04 ms
+[core:2074]     universe:   1,089.25 ms
+[core:2074]      (parse):   2,405.11 ms
+[core:2074]     (inline):   3,599.99 ms
+[core:2074]    (compile):  19,846.41 ms
+[core:2074]      compile:  26,936.65 ms
+[core:2074]        image:   1,915.42 ms
+[core:2074]        write:     638.92 ms
+[core:2074]      [total]:  71,793.31 ms
+> time ./core
+Hello, World!
+./core  0.00s user 0.00s system 56% cpu 0.009 total
+
+
+```
+
+
 #### Quickstart
 
 This document is evolving.
@@ -50,8 +120,7 @@ export PATH=$PATH:$HOME/bin
 
 #### clojint the clojure interpreter
 
-This project allows you to create a Clojure interpreter. (I added a pre-built clojint.jar to the repo, but
-building via lein has long term advantages.) I use it as a replacement for Perl and bash shell automation
+This project allows you to create a Clojure interpreter. I use it as a replacement for Perl and bash shell automation
 tasks.
 
 It takes 2 or 3 seconds to spin up the interpreter, but that's much better than ```lien run``` and I've fixed
@@ -227,12 +296,13 @@ Created /home/ubuntu/src/clojure-interpreter/target/uberjar/clojint-0.1.0-SNAPSH
 
 #### Usage
 
-1) lein uberjar
-2) ./local_release.clj
-3) ./example_3.clj
-4) Add new dependency to project.clj, as necessary for one of your Clojure scripts
-5) ./local_release.clj
-6) ./your_new_script.clj
+Run `lien uberjar` once. 
+
+1) ./local_release.clj
+2) ./example_shell.clj
+3) Add new dependency to project.clj, as necessary for one of your Clojure scripts
+4) ./local_release.clj
+5) ./your_new_script.clj
 
 You need to run ```lein uberjar``` once. After that, you can ```local_release.clj```
 (or ```./local_release.clj```)

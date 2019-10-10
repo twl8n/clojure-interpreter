@@ -14,6 +14,22 @@
           :main-opts ["-m" "nrepl.cmdline"
                       "--middleware" "[cider.nrepl/cider-middleware,refactor-nrepl.middleware/wrap-refactor]"
                       "--interactive"
-                      ]}}}
+                      ]}
+  ;; graalvm
+  :native-image
+  {:main-opts ["-m clj.native-image core"
+               "--initialize-at-build-time"
+               ;; optional native image name override
+               "-H:Name=core"]
+   :jvm-opts ["-Dclojure.compiler.direct-linking=true"]
+
+   ;; https://github.com/taylorwood/clj.native-image#contributing
+   ;; You'll need Clojure CLI tooling and GraalVM installed to test locally. Just change the source of the
+   ;; clj.native-image dependency to a :local/root instead of :git/url.
+
+   :extra-deps
+   {clj.native-image
+    {:git/url "https://github.com/taylorwood/clj.native-image.git"
+     :sha "7708e7fd4572459c81f6a6b8e44c96f41cdd92d4"}}}}}
 
 

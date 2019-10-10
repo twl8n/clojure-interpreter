@@ -37,7 +37,7 @@
       (println (:out (shell/sh "lein" "uberjar")))
       (println "copying uberjar: " 
                (:out 
-                (shell/sh "cp" "-v" "target/uberjar/clojint-0.1.0-SNAPSHOT-standalone.jar" (str home "/bin/clojint.jar"))))))
+                (shell/sh "cp" "-v" "target/uberjar/clojint-standalone.jar" (str home "/bin/clojint.jar"))))))
 
   ;; -Xverify:none saves around 0.3 to 0.4 sec on my machine
   ;; I'll take that since java takes an eternity to launch.
