@@ -6,15 +6,30 @@
 ;; client throws exception, but keeps living
 ;; client state is unknown, with or without an exception
 
-(defn init-http-client []
-  )
+;; A "client" is a clojure containing an atom, with an active flag, as well as start and stop fns.
+(def init-http-client
+  (let [client (atom {:active false})
+        stopper (fn [] (reset! client (assoc @client :active false)))
+        starter (fn [] (reset! client (assoc @client :active true)))]
+    (fn [] (reset! client {:start starter
+                           :stop stopper})
+      (starter)
+      client)))
+
+(defn close-http-client [client]
+  ((:stop @client)))
+
+(defn reinit-http-client [client]
+  ((:start @client)))
+
+(def foo (init-http-client))
+(close-http-client foo)
+(reinit-http-client foo)
 
 (defn http-get [client file-name]
   {:status :ok
    :body "hello world"})
 
-(defn close-http-client [client]
-  {:result "closed"})
 
 (defn retry-on-catch-transducer
   [rf]
