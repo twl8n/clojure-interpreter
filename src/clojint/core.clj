@@ -25,6 +25,17 @@
 
 ;; java -cp target/uberjar/clojint-standalone.jar clojint.core
 
+;; This supports -m <main>
+;; java -cp ~/bin/clojint.jar:src clojint.core src/defini/server.clj -m defini.server/-main
+
+
+;; Unlike normal clojure, -m allows execution of any arbitrary function, albeit only fns that have zero args.
+;; java -cp ~/bin/clojint.jar:src clojint.core src/defini/server.clj -m somens/somefn
+
+
+;; The interpreter has a crude concept of args, but it works for now.
+;; todo: add -cp to add classpath dirs?
+
 (defn -main
   [& args]
   (if (some->> args
@@ -34,6 +45,10 @@
     (do
       (try
         (load-file (first args))
+        (when (and (>= 3 (count args))
+                   (= "-m" (second args))
+                   (resolve (symbol (nth args 2))))
+          ((eval (symbol (nth args 2)))))
         (catch Exception e (.printStackTrace e)))
       (when (= "clojure.core" (str *ns*))
         (shutdown-agents))
