@@ -1,7 +1,100 @@
+
+#### Why?
+
+Clojure and Java are very slow to launch apps. Clojure toolchains and dependencies are a mess. I use this
+naive interpreter as a quick way to launch apps during development.
+
+I follow these steps:
+
+1) Clone the clojure-interpreter (via `git clone` or similar)
+2) Add necessary dependencies to the clojint project.clj
+3) Build and install clojint (see Quickstart below)
+4) Launch the dev app with a command that includes classpath. 
+
+If you have .clj files in ./src then add ":src" to the classpath. The first item in the classspath is the full path to the clojing jar file.
+
+I use the command below to run my definitionary ring web server app. Note that all the args after clojint.core
+are passed to the clojint interpreter. The interpreter will run any arbitrary function named in the -m arg.
+
+```
+java -cp ~/bin/clojint.jar:src clojint.core src/defini/server.clj -m defini.server/-main
+``
+
+The [sci (small clojure interpreter)](https://github.com/borkdude/sci "Small Clojure Interpreter") and
+[Babashka](https://github.com/borkdude/babashka "Babashka github repo") are real interpreters. Lots of work
+has gone into Babashka, and it is a very cool tool. However, using additional dependencies requires a rebuild
+or using the pod system. The build looks messy, and the pods seem hard to understand. The upshot is, that if
+you need something more than the base offering from Babashka, you'll have to do a fair bit of work. That said,
+Babashaka has lots of features and baked-in goodness that are missing from clojint. Clonjint is fundamentally
+just the Clojure `load-file` command, which evals Clojure code. Effective, but naive, and limited.
+
+If I understood Babashka better, I might be able to use it, but for now, I can't get Babashka to run my
+definitionary app, and clojint runs the app fine, so there is at least one use case for clojint.
+
+Please note that when I deploy the definitionary app, I'll deploy it as an uberjar created by `lein uberjar`.
+I would be using Clojure tools.deps aka deps.edn, but I can't figure out how to build an uberjar reliably
+except with `lein`. We live in a funny world.
+
+
+#### Quickstart
+
+This document is evolving.
+
+These instructions probably work on Mac OS and Linux. Windows users will need bash extensions and/or PowerShell and/or cygwin. 
+
+I've added a pre-built clojint.jar to the repo. You might be able to simply download the repo, run ./local_release.clj and start using the examples.
+
+Open your Terminal app and run commands in the terminal. (Granted, there is some implicit background knowledge
+here, like where is the Terminal app, how to enter commands, etc.)
+
+Download this file via your web browser or via curl:
+
+https://github.com/twl8n/clojure-interpreter/archive/master.zip
+
+`curl -LO https://github.com/twl8n/clojure-interpreter/archive/master.zip`
+
+unzip via command line or by double-clicking the master.zip file:
+
+`unzip master.zip`
+
+Unzip will create a local directory called clojure-interpreter-master.
+
+Change dir (cd) into the new directory:
+
+`cd clojure-interpreter-master/`
+
+Run the local_release.clj script that will copy the interpreter .jar file to a standard location:
+
+`./local_release.clj`
+
+Run one of the examples to confirm it all worked:
+
+`./example_print.clj`
+
+```
+cd clojure-interpreter-master/
+./local_release.clj
+./example_print.clj
+```
+
+Lots of little things can keep any of these steps from working. If you get error messages, just google them.
+
+One common issue is your path. You might need to add ~/bin and you might need to create ~/bin. These commands may help:
+
+```
+mkdir -p $HOME/bin
+export PATH=$PATH:$HOME/bin
+```
+
+
 #### GraalVM
 
 The GraalVM .tar.gz is 330M.
 https://github.com/taylorwood/clj.native-image
+
+GraalVM replaces your standard JDK with a much, much faster launching equivalent. GraalVM has both `java` and
+`jar` (as far as I know). Aside from installing GraalVM and making it your standard JDK, there are not
+differences. If you install the GraalVM extension, then you can make native binaries for your platform.
 
 
 ```
@@ -67,58 +160,7 @@ Hello, World!
 
 ```
 
-
-#### Quickstart
-
-This document is evolving.
-
-These instructions probably work on Mac OS and Linux. Windows users will need bash extensions and/or PowerShell and/or cygwin. 
-
-I've added a pre-built clojint.jar to the repo. You might be able to simply download the repo, run ./local_release.clj and start using the examples.
-
-Open your Terminal app and run commands in the terminal. (Granted, there is some implicit background knowledge
-here, like where is the Terminal app, how to enter commands, etc.)
-
-Download this file via your web browser or via curl:
-
-https://github.com/twl8n/clojure-interpreter/archive/master.zip
-
-`curl -LO https://github.com/twl8n/clojure-interpreter/archive/master.zip`
-
-unzip via command line or by double-clicking the master.zip file:
-
-`unzip master.zip`
-
-Unzip will create a local directory called clojure-interpreter-master.
-
-Change dir (cd) into the new directory:
-
-`cd clojure-interpreter-master/`
-
-Run the local_release.clj script that will copy the interpreter .jar file to a standard location:
-
-`./local_release.clj`
-
-Run one of the examples to confirm it all worked:
-
-`./example_print.clj`
-
-```
-cd clojure-interpreter-master/
-./local_release.clj
-./example_print.clj
-```
-
-Lots of little things can keep any of these steps from working. If you get error messages, just google them.
-
-One common issue is your path. You might need to add ~/bin and you might need to create ~/bin. These commands may help:
-
-```
-mkdir -p $HOME/bin
-export PATH=$PATH:$HOME/bin
-```
-
-#### clojint the clojure interpreter
+#### More details about clojint, the clojure interpreter
 
 This project allows you to create a Clojure interpreter. I use it as a replacement for Perl and bash shell automation
 tasks.
