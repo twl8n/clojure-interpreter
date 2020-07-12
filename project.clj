@@ -20,6 +20,7 @@
                  [clj-time "0.14.2"] ;; https://github.com/clj-time/clj-time
                  [ring "1.5.0"]
                  [ring/ring-core "1.2.1"]
+                 [ring-basic-authentication "1.0.5"]
                  [ring/ring-jetty-adapter "1.2.1"]
                  [org.imgscalr/imgscalr-lib "4.2"]
                  [image-resizer "0.1.9"]
