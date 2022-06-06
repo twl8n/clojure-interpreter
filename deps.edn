@@ -8,9 +8,20 @@
   com.layerware/hugsql {:mvn/version "0.4.8"}
   org.postgresql/postgresql {:mvn/version "42.1.4"}}
  :aliases 
- {:nrepl {:extra-deps {nrepl/nrepl {:mvn/version "0.6.0"}
-                       refactor-nrepl {:mvn/version "2.4.0"}
-                       cider/cider-nrepl {:mvn/version "0.21.1"}}
+ {;; 2022-06-06
+  :repl/rebel
+  {:extra-deps {nrepl/nrepl                {:mvn/version "0.9.0"}
+                cider/cider-nrepl          {:mvn/version "0.28.2"}
+                com.bhauman/rebel-readline {:mvn/version "0.1.4"}}
+   :main-opts  ["-m" "nrepl.cmdline"
+                "--middleware" "[cider.nrepl/cider-middleware]"
+                "--interactive"
+                "-f" "rebel-readline.main/-main"]}
+  
+  ;; older nrepl dep, but with updated? versions
+  :nrepl {:extra-deps {nrepl/nrepl {:mvn/version "0.9.0"} ;; 0.6.0
+                       refactor-nrepl {:mvn/version "2.4.0"} ;; 2.4.0
+                       cider/cider-nrepl {:mvn/version "0.28.2"}} ;; 0.21.1
           :main-opts ["-m" "nrepl.cmdline"
                       "--middleware" "[cider.nrepl/cider-middleware,refactor-nrepl.middleware/wrap-refactor]"
                       "--interactive"
