@@ -13,4 +13,4 @@
   ;; cwd where app was launched?
   (println (str (fs/cwd)))
   
-  (println (:out (shell/sh "ls" "-l" (str (nth flist 0))))))
+  (doseq [xx (take 5 flist)] (printf "%s" (:out (shell/sh "ls" "-l" (str xx))))))
