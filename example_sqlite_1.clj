@@ -21,13 +21,14 @@
   {:adapter (adapter/hugsql-adapter-clojure-jdbc)})
 (hugsql/def-sqlvec-fns (clojure.java.io/as-file "full.sql"))
 
+;; Connecting to a SQLite database has the side effect of creating an empty database file if it did not
+;; already exist. Checking the connection would be somewhat redunant for SQLite. Checking for an empty
+;; database is necessary for this demo.
+
 (defn -main
   "Create the address table if it doesn't exist, insert a row, read all the records."
   []
   (let [conn {:connection (jdbc/get-connection dbspec-sqlite)}]
-    ;; Connecting to a SQLite database has the side effect of creating an empty database file if it did not
-    ;; already exist. Checking the connection would be somewhat redunant for SQLite. Checking for an empty
-    ;; database is necessary for this demo.
     (if (>= 0 (:count (check-empty conn)))
       (do
         (printf "Database contains %s tables/sequences.\n" (:count (check-empty conn)))
