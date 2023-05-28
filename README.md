@@ -1,6 +1,8 @@
 
 #### You probably want Babashka
 
+My `clojint` interpreter is crude. You are probably looking for the real Clojure interpreter called "babashka".
+
 Babashka is a true Clojure interpreter (and more) is [Babashka](https://github.com/borkdude/babashka "Babashka github repo") and [sci (small clojure interpreter)](https://github.com/borkdude/sci "Small Clojure Interpreter").
 
 https://github.com/borkdude/babashka
@@ -10,18 +12,21 @@ https://github.com/borkdude/sci
 Michiel Borkent aka borkdude has put and immense amount of work into Babashka, and it is a very cool tool. Besides being a true Clojure interpreter, it can (as far as I can tell) be extended on the fly with a pod system. 
 
 My very simple and naive clojint interpreter is fundamentally just the Clojure `load-file` command, which
-evals Clojure code. Effective, but naive, and limited. I've installed babashka and use it for my coding projects.
+evals Clojure code. Effective, but naive, and limited. This project is here as something historical, which
+someone may find useful.
+
+I've installed babashka and use it for my coding projects.
 
 
 #### Why?
 
 I initially had the idea to do a Clojure interpreter in 2016 or 2017. I wanted a single executable install
 that would quickly launch clojure and run clojure. I love Clojure, and I'm not going back to Perl, but Perl
-launches in under 1ms. Clojure and Java are very slow to launch apps.
+launches in under 1ms. Clojure and Java are very slow to launch, anywhere from 400ms to several seconds.
 
-Clojure toolchains and dependencies can be very confusing. I have always been able to manage dependencies via
-`lein`. Combined with building a clojure interpreter via `lein uberjar`, I was able to (more or less) add
-modules to my crude interpreter.
+Clojure toolchains and dependencies can be very confusing. Even though I was never able to get on-the-fly
+dependencies working, I have always been able to manage dependencies via `lein`. Combined with building a
+clojure interpreter via `lein uberjar`, I was able to (more or less) add modules to my crude interpreter.
 
 
 
