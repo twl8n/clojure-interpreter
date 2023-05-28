@@ -33,14 +33,14 @@ clojure interpreter via `lein uberjar`, I was able to (more or less) add modules
 
 #### Prerequisites
 
-I follow these steps:
+Especially when extending `clojint` with additional dependencies, I follow these steps:
 
 1) Clone the clojure-interpreter (via `git clone` or similar)
 2) Add necessary dependencies to the clojint project.clj
 3) Build and install clojint (see Quickstart below)
 4) Launch the dev app with a command that includes classpath. 
 
-If you have .clj files in ./src then add ":src" to the classpath. The first item in the classspath is the full path to the clojing jar file.
+If you have .clj files in ./src then add ":src" to the classpath. The first item in the classspath is the full path to the clojint jar file.
 
 I use the command below to run my definitionary ring web server app. Note that all the args after clojint.core
 are passed to the clojint interpreter. The interpreter will run any arbitrary function named in the -m arg.
