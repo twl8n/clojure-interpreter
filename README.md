@@ -1,24 +1,31 @@
 
 #### You probably want Babashka
 
-A true Clojure interpreter (and more) is [Babashka](https://github.com/borkdude/babashka "Babashka github repo") and [sci (small clojure interpreter)](https://github.com/borkdude/sci "Small Clojure Interpreter").
+Babashka is a true Clojure interpreter (and more) is [Babashka](https://github.com/borkdude/babashka "Babashka github repo") and [sci (small clojure interpreter)](https://github.com/borkdude/sci "Small Clojure Interpreter").
+
+https://github.com/borkdude/babashka
  
- Lots of work
-has gone into Babashka, and it is a very cool tool. However, using additional dependencies requires a rebuild
-or using the pod system. The build looks messy, and the pods seem hard to understand. The upshot is, that if
-you need something more than the base offering from Babashka, you'll have to do a fair bit of work. That said,
-Babashaka has lots of features and baked-in goodness that are missing from clojint. Clonjint is fundamentally
-just the Clojure `load-file` command, which evals Clojure code. Effective, but naive, and limited.
+https://github.com/borkdude/sci
 
-If I understood Babashka better, I might be able to use it, but for now, I can't get Babashka to run my
-definitionary app, and clojint runs the app fine, so there is at least one use case for clojint.
+Michiel Borkent aka borkdude has put and immense amount of work into Babashka, and it is a very cool tool. Besides being a true Clojure interpreter, it can (as far as I can tell) be extended on the fly with a pod system. 
 
+My very simple and naive clojint interpreter is fundamentally just the Clojure `load-file` command, which
+evals Clojure code. Effective, but naive, and limited. I've installed babashka and use it for my coding projects.
 
 
 #### Why?
 
-Clojure and Java are very slow to launch apps. Clojure toolchains and dependencies are a mess. I use this
-naive interpreter as a quick way to launch apps during development.
+I initially had the idea to do a Clojure interpreter in 2016 or 2017. I wanted a single executable install
+that would quickly launch clojure and run clojure. I love Clojure, and I'm not going back to Perl, but Perl
+launches in under 1ms. Clojure and Java are very slow to launch apps.
+
+Clojure toolchains and dependencies can be very confusing. I have always been able to manage dependencies via
+`lein`. Combined with building a clojure interpreter via `lein uberjar`, I was able to (more or less) add
+modules to my crude interpreter.
+
+
+
+#### Quickstart
 
 I follow these steps:
 
