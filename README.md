@@ -13,12 +13,13 @@ Michiel Borkent aka borkdude has put and immense amount of work into Babashka, a
 
 My very simple and naive clojint interpreter is fundamentally just the Clojure `load-file` command, which
 evals Clojure code. Effective, but naive, and limited. This project is here as something historical, which
-someone may find useful.
+someone may find useful. I have included a number of small, sample `.clj` files that are nice, clear, examples
+of shell interactions.
 
 I've installed babashka and use it for my coding projects.
 
 
-#### Why?
+#### Why did I initially create this?
 
 I initially had the idea to do a Clojure interpreter in 2016 or 2017. I wanted a single executable install
 that would quickly launch clojure and run clojure. I love Clojure, and I'm not going back to Perl, but Perl
@@ -30,7 +31,7 @@ clojure interpreter via `lein uberjar`, I was able to (more or less) add modules
 
 
 
-#### Quickstart
+#### Prerequisites
 
 I follow these steps:
 
