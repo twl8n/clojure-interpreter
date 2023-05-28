@@ -1,4 +1,20 @@
 
+#### You probably want Babashka
+
+A true Clojure interpreter (and more) is [Babashka](https://github.com/borkdude/babashka "Babashka github repo") and [sci (small clojure interpreter)](https://github.com/borkdude/sci "Small Clojure Interpreter").
+ 
+ Lots of work
+has gone into Babashka, and it is a very cool tool. However, using additional dependencies requires a rebuild
+or using the pod system. The build looks messy, and the pods seem hard to understand. The upshot is, that if
+you need something more than the base offering from Babashka, you'll have to do a fair bit of work. That said,
+Babashaka has lots of features and baked-in goodness that are missing from clojint. Clonjint is fundamentally
+just the Clojure `load-file` command, which evals Clojure code. Effective, but naive, and limited.
+
+If I understood Babashka better, I might be able to use it, but for now, I can't get Babashka to run my
+definitionary app, and clojint runs the app fine, so there is at least one use case for clojint.
+
+
+
 #### Why?
 
 Clojure and Java are very slow to launch apps. Clojure toolchains and dependencies are a mess. I use this
@@ -18,18 +34,7 @@ are passed to the clojint interpreter. The interpreter will run any arbitrary fu
 
 ```
 java -cp ~/bin/clojint.jar:src clojint.core src/defini/server.clj -m defini.server/-main
-``
-
-The [sci (small clojure interpreter)](https://github.com/borkdude/sci "Small Clojure Interpreter") and
-[Babashka](https://github.com/borkdude/babashka "Babashka github repo") are real interpreters. Lots of work
-has gone into Babashka, and it is a very cool tool. However, using additional dependencies requires a rebuild
-or using the pod system. The build looks messy, and the pods seem hard to understand. The upshot is, that if
-you need something more than the base offering from Babashka, you'll have to do a fair bit of work. That said,
-Babashaka has lots of features and baked-in goodness that are missing from clojint. Clonjint is fundamentally
-just the Clojure `load-file` command, which evals Clojure code. Effective, but naive, and limited.
-
-If I understood Babashka better, I might be able to use it, but for now, I can't get Babashka to run my
-definitionary app, and clojint runs the app fine, so there is at least one use case for clojint.
+```
 
 Please note that when I deploy the definitionary app, I'll deploy it as an uberjar created by `lein uberjar`.
 I would be using Clojure tools.deps aka deps.edn, but I can't figure out how to build an uberjar reliably
