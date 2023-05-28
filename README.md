@@ -3,7 +3,7 @@
 
 My `clojint` interpreter is crude. You are probably looking for the real Clojure interpreter called "babashka".
 
-Babashka is a true Clojure interpreter (and more) is [Babashka](https://github.com/borkdude/babashka "Babashka github repo") and [sci (small clojure interpreter)](https://github.com/borkdude/sci "Small Clojure Interpreter").
+[Babashka](https://github.com/borkdude/babashka "Babashka github repo") is a true Clojure interpreter (and more) along with [sci (small clojure interpreter)](https://github.com/borkdude/sci "Small Clojure Interpreter").
 
 https://github.com/borkdude/babashka
  
