@@ -1,4 +1,5 @@
 
+
 #### You probably want Babashka
 
 My `clojint` interpreter is crude. You are probably looking for the real Clojure interpreter called "babashka".
@@ -50,7 +51,7 @@ java -cp ~/bin/clojint.jar:src clojint.core src/defini/server.clj -m defini.serv
 ```
 
 Please note that when I deploy the definitionary app, I'll deploy it as an uberjar created by `lein uberjar`.
-I would be using Clojure tools.deps aka deps.edn, but I can't figure out how to build an uberjar reliably
+I would be using Clojure tools.deps aka deps.edn, but as of 2021 I can't figure out how to build an uberjar reliably
 except with `lein`. We live in a funny world.
 
 
